@@ -88,7 +88,7 @@ html {
 .hero-left {
     flex: 1;
     width: 50%;
-    background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0)), url('images/Hero1.png');
+    background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0)), url('/images/hero1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -206,7 +206,7 @@ html {
     position: sticky;
     top: 0;
     height: 100vh;
-    background-image: linear-gradient(rgba(60,40,28,0.35), rgba(60,40,28,0.35)), url("images/land1.png");
+    background-image: linear-gradient(rgba(60,40,28,0.35), rgba(60,40,28,0.35)), url("/images/land1.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
