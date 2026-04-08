@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AromaFonda</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">AromaFonda</div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="contact-btn">Contact Now</a>
+      </div>
+    </nav>
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-text">
+          <div class="small-label">嗅覺 × 身心 × 科學芳療</div>
+          <h1>讓香氣，成為妳愛自己的方式。</h1>
+          <p>
+            AromaFonda
+            以日系嗅覺反應分析與植物科學為基礎，提供溫柔、精準、可持續的芳香療癒陪伴，幫助妳在繁忙生活中重新找回身心節奏。
+          </p>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img src="images/Hero2.jpg" alt="Hero Image" />
+      </div>
+    </section>
+    <section class="principles">
+      <h2 class="principles-title">「療癒，不是改變你，而是陪你回到自己。」</h2>
+      <p class="principles-subtitle">
+        Healing is not about change—it is about returning to yourself.
+      </p>
+      <div class="principles-container">
+        <div class="principle-card">
+          <h3>嗅覺 × 科學</h3>
+          <p>以氣味偏好與反應作為觀察窗口，讀懂壓力、疲勞與身體訊號。</p>
+        </div>
+        <div class="principle-card">
+          <h3>植物 × 芳療</h3>
+          <p>嚴選植物來源精油，結合專業芳療知識，設計貼近日常的照護方案。</p>
+        </div>
+        <div class="principle-card">
+          <h3>個人化 × 陪伴</h3>
+          <p>依照個人生活型態與目標調整，從一次評估延伸到持續支持。</p>
+        </div>
+      </div>
+    </section>
+    <section class="scroll-transition">
+      <div class="sticky-bg">
+        <div class="content-layer cta-layer">
+          <div class="cta-card">
+            <h2>探索你的芳療之旅</h2>
+            <p>
+              我們提供個人芳療課程與嗅覺分析，也為企業與團隊設計專屬的身心照護體驗，陪伴你與你的團隊找回身心平衡。
+            </p>
+            <div class="cta-actions">
+              <button type="button">探索課程</button>
+              <button type="button">合作洽詢</button>
+            </div>
+          </div>
+        </div>
+        <div class="content-layer brand-values-layer">
+          <div class="brand-values-container">
+            <div class="brand-values-header">
+              <div class="brand-values-label">BRAND VALUES</div>
+              <h2 class="brand-values-title">
+                以溫柔而堅定的價值，定義每一次香氣體驗
+              </h2>
+            </div>
+            <div class="brand-values-cards">
+              <div class="brand-value-card">
+                <h3>Plant-Origin</h3>
+                <p>重視原料來源與栽培品質，讓每滴香氣都貼近自然本質。</p>
+              </div>
+              <div class="brand-value-card">
+                <h3>Eco-Conscious</h3>
+                <p>在包裝、使用與選品上優先考量環境影響，減少不必要浪費。</p>
+              </div>
+              <div class="brand-value-card">
+                <h3>Sustainable</h3>
+                <p>支持永續植物供應鏈，關注土地與社群共好的長期價值。</p>
+              </div>
+              <div class="brand-value-card">
+                <h3>Less but Better</h3>
+                <p>不追求繁複堆疊，只保留真正有感且可持續的芳療選擇。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersReducedMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        if (!prefersReducedMotion) {
+          const section = document.querySelector(".scroll-transition");
+          const ctaLayer = document.querySelector(".cta-layer");
+          const bvLayer = document.querySelector(".brand-values-layer");
+
+          let ticking = false;
+
+          const updateScroll = () => {
+            const sectionRect = section.getBoundingClientRect();
+            const scrollProgress = -sectionRect.top / window.innerHeight;
+            let transitionProgress = 0;
+            if (scrollProgress > 0.45) {
+              transitionProgress = Math.min((scrollProgress - 0.45) / 0.25, 1);
+            }
+
+            ctaLayer.style.opacity = 1 - transitionProgress;
+            ctaLayer.style.transform = `translateY(${-transitionProgress * 120}px)`;
+
+            bvLayer.style.opacity = transitionProgress;
+            bvLayer.style.transform = `translateY(${120 - transitionProgress * 120}px)`;
+
+            ticking = false;
+          };
+
+          window.addEventListener("scroll", () => {
+            if (!ticking) {
+              requestAnimationFrame(updateScroll);
+              ticking = true;
+            }
+          });
+        } else {
+          // For reduced motion, show both layers
+          document.querySelector(".cta-layer").style.opacity = "1";
+          document.querySelector(".brand-values-layer").style.opacity = "1";
+          document.querySelector(".brand-values-layer").style.transform =
+            "translateY(0)";
+        }
+      });
+    </script>
+    <section class="experiences">
+      <div class="experiences-container">
+        <div class="experiences-header">
+          <h2>探索不同的香氣體驗</h2>
+          <div class="divider"></div>
+          <p>從嗅覺分析、植物精油到個人化課程，找到最適合你的芳療方式。</p>
+        </div>
+        <div class="experiences-cards">
+          <div class="experience-card">
+            <div class="card-image"></div>
+            <div class="card-label">日本嗅覺分析</div>
+          </div>
+          <div class="experience-card">
+            <div class="card-image"></div>
+            <div class="card-label">法國有機植物精油</div>
+          </div>
+          <div class="experience-card">
+            <div class="card-image"></div>
+            <div class="card-label">課程與客製化商品</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="contact-section">
+      <div class="contact-container">
+        <div class="footer-grid">
+          <div class="footer-column footer-links">
+            <h3 class="footer-title">探索 AromaFonda</h3>
+            <p class="footer-text">日本嗅覺反應分析</p>
+            <p class="footer-text">法國精選有機植物精油</p>
+            <p class="footer-text">Aoqi 酒香聯名擴香瓶</p>
+            <p class="footer-text">課程與香氣體驗</p>
+          </div>
+          <div class="footer-column footer-connect">
+            <h3 class="footer-title">Connect</h3>
+            <p class="footer-text">
+              Email｜<a href="mailto:Aroma.fonda@gmail.com"
+                >Aroma.fonda@gmail.com</a
+              >
+            </p>
+            <p class="footer-text">LINE｜@aromafonda</p>
+            <p class="footer-text">Instagram｜@aromafonda</p>
+          </div>
+          <div class="footer-column footer-promise">
+            <h3 class="footer-title">Our Promise</h3>
+            <p class="footer-text">
+              我們相信，香氣不只是產品，<br />而是一種陪伴身心的方式。
+            </p>
+            <p class="footer-text">
+              以嗅覺為起點，融合植物與科學，<br />用溫柔而有依據的方式，<br />陪你回到真正的自己。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
