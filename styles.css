@@ -209,7 +209,7 @@ html {
     position: sticky;
     top: 0;
     height: 100vh;
-    background-image: linear-gradient(rgba(60,40,28,0.35), rgba(60,40,28,0.35)), url("/images/land1.png");
+    background-image: linear-gradient(rgba(60,40,28,0.35), rgba(60,40,28,0.35)), url("/images/land1.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
