@@ -91,7 +91,7 @@ html {
 .hero-left {
     flex: 1;
     width: 50%;
-    background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0)), url('/images/hero1.png');
+    background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0)), url('/images/hero1.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
