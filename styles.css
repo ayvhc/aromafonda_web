@@ -52,13 +52,14 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 56px;
-    margin-left: -50px;
+    height: clamp(44px, 6vw, 56px);
+    margin-left: clamp(-12px, -1.6vw, -28px);
     text-decoration: none;
 }
 
 .navbar-logo img {
-    height: 42px;
+    height: clamp(32px, 4.5vw, 42px);
+    max-width: min(32vw, 220px);
     width: auto;
     display: block;
     object-fit: contain;
@@ -770,6 +771,14 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .nav-container {
+        padding: 0 16px;
+    }
+
+    .navbar-logo {
+        margin-left: 0;
+    }
+
     .hero {
         flex-direction: column;
         height: auto;
