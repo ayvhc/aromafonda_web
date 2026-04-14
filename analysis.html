@@ -254,7 +254,7 @@
         let ticking = false;
 
         const updateNavbarTheme = () => {
-          const triggerPoint = bridge.offsetTop + bridge.offsetHeight - 120;
+          const triggerPoint = bridge.offsetTop + bridge.offsetHeight * 0.5;
           const shouldUseLightTheme = window.scrollY >= triggerPoint;
 
           navbar.classList.toggle("is-light-analysis", shouldUseLightTheme);
