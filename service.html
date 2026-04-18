@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>健康課程 - AromaFonda</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .service-page {
+        background:
+          linear-gradient(
+            135deg,
+            rgba(75, 46, 34, 0.58) 0%,
+            rgba(122, 78, 52, 0.38) 42%,
+            rgba(201, 162, 126, 0.16) 100%
+          ),
+          url("images/hero1.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: #f3ece4;
+      }
+
+      .service-page .navbar {
+        background-color: #4a3427;
+      }
+
+      .service-page .contact-section {
+        background: #e4d9cb;
+        margin-top: 0;
+      }
+
+      .service-editorial {
+        position: relative;
+        padding: 132px 0 148px;
+        min-height: 100vh;
+      }
+
+      .service-editorial::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          transparent 18%
+        );
+      }
+
+      .service-frame {
+        width: min(1320px, calc(100% - 56px));
+        margin: 0 auto;
+      }
+
+      .service-heading {
+        max-width: 740px;
+        margin-bottom: 52px;
+      }
+
+      .service-kicker {
+        margin: 0 0 18px;
+        font-size: 12px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(247, 239, 231, 0.82);
+      }
+
+      .service-title {
+        margin: 0;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: clamp(36px, 5.1vw, 66px);
+        line-height: 1.1;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: #fffaf4;
+      }
+
+      .service-subtitle {
+        margin: 20px 0 0;
+        max-width: 560px;
+        font-size: 18px;
+        line-height: 1.9;
+        color: rgba(250, 243, 236, 0.92);
+      }
+
+      .service-divider {
+        width: min(180px, 38%);
+        height: 1px;
+        margin-top: 28px;
+        background: linear-gradient(
+          90deg,
+          rgba(222, 205, 187, 0.78),
+          rgba(222, 205, 187, 0.12)
+        );
+      }
+
+      .service-panels {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        min-height: min(76vh, 860px);
+      }
+
+      .service-panel {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        min-height: 620px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: #eadfce;
+        border: 1px solid rgba(103, 72, 51, 0.14);
+        box-shadow: 0 26px 60px rgba(42, 27, 19, 0.14);
+        transition:
+          transform 0.45s ease,
+          border-color 0.45s ease,
+          box-shadow 0.45s ease,
+          flex 0.45s ease;
+      }
+
+      .service-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -3;
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.02);
+      }
+
+      .service-panel::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(250, 244, 236, 0.97) 0%,
+            rgba(241, 231, 220, 0.9) 50%,
+            rgba(226, 211, 196, 0.35) 100%
+          ),
+          linear-gradient(
+            0deg,
+            rgba(131, 96, 69, 0.22),
+            rgba(131, 96, 69, 0.22)
+          );
+        transition: background 0.45s ease;
+      }
+
+      .service-panel-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          radial-gradient(
+            circle at 18% 22%,
+            rgba(255, 250, 244, 0.58),
+            transparent 30%
+          ),
+          linear-gradient(135deg, rgba(205, 175, 149, 0.22), transparent 52%);
+      }
+
+      .service-panel[data-course="wellness"]::before {
+        background-image: url("images/s1.jpg");
+      }
+
+      .service-panel[data-course="beauty"]::before {
+        background-image: url("images/s3.jpg");
+      }
+
+      .service-panel[data-course="creative"]::before {
+        background-image: url("images/s2.jpg");
+      }
+
+      .service-panel-inner {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        padding: 42px 30px 30px;
+      }
+
+      .service-panel-title {
+        margin: 0;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: clamp(30px, 3vw, 38px);
+        line-height: 1.24;
+        font-weight: 500;
+        color: #4f3526;
+      }
+
+      .service-panel-line {
+        margin: 14px 0 0;
+        font-size: 14px;
+        line-height: 1.9;
+        letter-spacing: 0.14em;
+        color: rgba(91, 64, 46, 0.84);
+      }
+
+      .service-panel-divider {
+        width: 64px;
+        height: 1px;
+        margin: 24px 0 0;
+        background: rgba(103, 72, 51, 0.24);
+      }
+
+      .service-panel-reveal {
+        margin-top: 18px;
+      }
+
+      .service-panel-reveal-copy {
+        min-width: 0;
+        word-break: break-word;
+      }
+
+      .service-panel-text {
+        margin: 18px 0 0;
+        font-size: 15px;
+        line-height: 1.7;
+        color: rgba(79, 53, 38, 0.9);
+      }
+
+      .service-panel-list {
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        margin: 22px 0 0;
+        padding: 0;
+      }
+
+      .service-panel-list li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 14px;
+        line-height: 1.8;
+        color: rgba(91, 64, 46, 0.84);
+      }
+
+      .service-panel-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #a57858;
+      }
+
+      .service-panel-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 36px;
+      }
+
+      .service-panel-list,
+      .service-panel-actions {
+        transition:
+          opacity 0.32s ease,
+          transform 0.32s ease;
+      }
+
+      .service-panel-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 22px;
+        border-radius: 999px;
+        border: 1px solid rgba(103, 72, 51, 0.24);
+        color: #4f3526;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        background: rgba(255, 250, 245, 0.34);
+        transition:
+          background-color 0.32s ease,
+          border-color 0.32s ease,
+          color 0.32s ease;
+      }
+
+      .service-panel-cta:hover,
+      .service-panel-cta:focus-visible {
+        background: rgba(255, 248, 240, 0.72);
+        border-color: rgba(103, 72, 51, 0.38);
+        color: #3f291d;
+      }
+
+      .service-detail {
+        padding: 0;
+        background: #e8d9c8;
+      }
+
+      .service-detail:last-of-type {
+        margin-bottom: 144px;
+      }
+
+      .service-detail-frame {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .service-detail-media {
+        min-height: 560px;
+        padding-left: 32px;
+        padding-top: 32px;
+      }
+
+      .service-detail-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .service-detail-frame--reverse .service-detail-media {
+        padding-left: 0;
+        padding-right: 32px;
+      }
+
+      .service-detail-copy {
+        display: flex;
+        align-items: center;
+        padding: 64px 72px;
+        color: #4f3526;
+        background: #e8d9c8;
+      }
+
+      .service-detail-copy-inner {
+        max-width: 520px;
+      }
+
+      .service-detail-title {
+        margin: 0 0 24px;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: clamp(32px, 4vw, 48px);
+        line-height: 1.18;
+        font-weight: 500;
+        color: #4a3123;
+      }
+
+      .service-detail-text {
+        margin: 0 0 18px;
+        font-size: 16px;
+        line-height: 1.95;
+        color: rgba(79, 53, 38, 0.9);
+      }
+
+      .service-quote {
+        padding: 112px 32px;
+        background: #e8d9c8;
+      }
+
+      .service-quote-inner {
+        max-width: 920px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .service-quote-text {
+        margin: 0;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: clamp(28px, 4.4vw, 46px);
+        line-height: 1.55;
+        font-weight: 500;
+        color: #4a3123;
+      }
+
+      .service-panel:hover,
+      .service-panel:focus-within {
+        transform: translateY(-4px);
+        border-color: rgba(103, 72, 51, 0.2);
+        box-shadow: 0 30px 72px rgba(42, 27, 19, 0.18);
+      }
+
+      .service-panel:hover::after,
+      .service-panel:focus-within::after {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(252, 248, 242, 0.84) 0%,
+            rgba(241, 229, 216, 0.92) 32%,
+            rgba(224, 205, 187, 0.98) 100%
+          ),
+          linear-gradient(
+            0deg,
+            rgba(131, 96, 69, 0.22),
+            rgba(131, 96, 69, 0.22)
+          );
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .service-panel-list,
+        .service-panel-actions {
+          opacity: 0;
+          transform: translateY(12px);
+          pointer-events: none;
+        }
+
+        .service-panel:hover .service-panel-list,
+        .service-panel:hover .service-panel-actions,
+        .service-panel:focus-within .service-panel-list,
+        .service-panel:focus-within .service-panel-actions {
+          opacity: 1;
+          transform: translateY(0);
+          pointer-events: auto;
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .service-panels {
+          gap: 14px;
+        }
+
+        .service-panel {
+          min-height: 580px;
+        }
+
+        .service-panel-inner {
+          padding: 34px 24px 24px;
+        }
+
+        .service-detail-copy {
+          padding: 52px 48px;
+        }
+
+        .service-quote {
+          padding: 92px 32px;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .service-editorial {
+          padding: 118px 0 104px;
+        }
+
+        .service-frame {
+          width: min(100% - 32px, 1320px);
+        }
+
+        .service-heading {
+          margin-bottom: 36px;
+        }
+
+        .service-panels {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+
+        .service-page .contact-section {
+          margin-top: 0;
+        }
+
+        .service-panel {
+          display: flex;
+          min-height: 0;
+        }
+
+        .service-detail {
+          padding: 0;
+        }
+
+        .service-detail:last-of-type {
+          margin-bottom: 112px;
+        }
+
+        .service-detail-frame {
+          grid-template-columns: 1fr;
+        }
+
+        .service-detail-media {
+          min-height: 360px;
+          padding-left: 0;
+          padding-top: 0;
+        }
+
+        .service-detail-frame--reverse .service-detail-media {
+          padding-right: 0;
+        }
+
+        .service-quote {
+          padding: 80px 28px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .service-editorial {
+          padding: 108px 0 92px;
+        }
+
+        .service-title {
+          font-size: 32px;
+        }
+
+        .service-subtitle {
+          font-size: 16px;
+          line-height: 1.85;
+        }
+
+        .service-panel {
+          border-radius: 22px;
+        }
+
+        .service-panel-title {
+          font-size: 28px;
+        }
+
+        .service-panel-inner {
+          padding: 30px 20px 22px;
+        }
+
+        .service-panel-line,
+        .service-panel-list li {
+          font-size: 13px;
+        }
+
+        .service-panel-text {
+          font-size: 14px;
+          line-height: 1.9;
+        }
+
+        .service-panel-actions {
+          flex-direction: column;
+        }
+
+        .service-panel-cta {
+          width: 100%;
+        }
+
+        .service-page .contact-section {
+          margin-top: 0;
+        }
+
+        .service-detail {
+          padding: 0;
+        }
+
+        .service-detail:last-of-type {
+          margin-bottom: 88px;
+        }
+
+        .service-detail-media {
+          min-height: 280px;
+          padding-left: 0;
+          padding-top: 0;
+        }
+
+        .service-detail-frame--reverse .service-detail-media {
+          padding-right: 0;
+        }
+
+        .service-quote {
+          padding: 64px 22px;
+        }
+
+        .service-detail-copy {
+          padding: 36px 22px 40px;
+        }
+
+        .service-detail-title {
+          margin-bottom: 18px;
+          font-size: 30px;
+        }
+
+        .service-quote-text {
+          font-size: 28px;
+          line-height: 1.6;
+        }
+
+        .service-detail-text {
+          font-size: 15px;
+          line-height: 1.85;
+        }
+      }
+    </style>
+  </head>
+  <body class="service-page">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="navbar-logo">
+          <span class="navbar-logo-stack">
+            <img
+              class="navbar-logo-default"
+              src="images/logo.png"
+              alt="AromaFonda"
+            />
+            <img
+              class="navbar-logo-hover"
+              src="images/logo3.png"
+              alt=""
+              aria-hidden="true"
+            />
+          </span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
+          <li><a href="./adnaturam.html">法國有機植物精油</a></li>
+          <li><a href="./service.html">課程與服務</a></li>
+          <li><a href="/about.html">關於我們</a></li>
+          <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+        <a href="#contact" class="contact-btn">立即預約</a>
+      </div>
+    </nav>
+
+    <main class="service-editorial">
+      <div class="service-frame">
+        <header class="service-heading">
+          <h1 class="service-title">健康課程</h1>
+          <p class="service-subtitle">
+            以香氣與自然療法，重新連結身心與生活節奏
+          </p>
+          <div class="service-divider" aria-hidden="true"></div>
+        </header>
+
+        <section class="service-panels" aria-label="健康課程內容">
+          <article class="service-panel" data-course="wellness">
+            <div class="service-panel-bg" aria-hidden="true"></div>
+            <div class="service-panel-inner">
+              <h2 class="service-panel-title">全齡芳香健康調理</h2>
+              <p class="service-panel-line">呼吸 睡眠 循環 情緒</p>
+              <div class="service-panel-divider" aria-hidden="true"></div>
+              <div class="service-panel-reveal">
+                <div class="service-panel-reveal-copy">
+                  <p class="service-panel-text">
+                    從日常開始，為身心重啟自然節奏。融合芳香療法與身體照護觀念，帶您從呼吸、循環、睡眠、情緒四大面向了解身體訊號，陪伴不同年齡層找到更適合自己的健康節奏。
+                  </p>
+                  <ul class="service-panel-list">
+                    <li>壓力舒緩</li>
+                    <li>助眠放鬆</li>
+                    <li>循環代謝</li>
+                    <li>銀髮族芳香照護</li>
+                  </ul>
+                  <div class="service-panel-actions">
+                    <a href="#" class="service-panel-cta">立即預約</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-panel" data-course="beauty">
+            <div class="service-panel-bg" aria-hidden="true"></div>
+            <div class="service-panel-inner">
+              <h2 class="service-panel-title">芳香美容保養</h2>
+              <p class="service-panel-line">植物精華 保濕 修護 調理</p>
+              <div class="service-panel-divider" aria-hidden="true"></div>
+              <div class="service-panel-reveal">
+                <div class="service-panel-reveal-copy">
+                  <p class="service-panel-text">
+                    讓肌膚回歸純粹，也讓心重新綻放。以天然植物精華結合芳香學與肌膚生理學，從清潔、保濕到抗老修護，帶您了解如何安全調製芳香保養品。
+                  </p>
+                  <ul class="service-panel-list">
+                    <li>植物油與純露應用</li>
+                    <li>精油配方設計</li>
+                    <li>膚質調理實作</li>
+                  </ul>
+                  <div class="service-panel-actions">
+                    <a href="#" class="service-panel-cta">立即預約</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-panel" data-course="creative">
+            <div class="service-panel-bg" aria-hidden="true"></div>
+            <div class="service-panel-inner">
+              <h2 class="service-panel-title">藝術香氣創作</h2>
+              <p class="service-panel-line">氣味記憶 結構 比例 情緒</p>
+              <div class="service-panel-divider" aria-hidden="true"></div>
+              <div class="service-panel-reveal">
+                <div class="service-panel-reveal-copy">
+                  <p class="service-panel-text">
+                    用香氣說故事，調出專屬於你的能量頻率。從氣味記憶、香氣結構、調香比例，到能量與情緒的連結，帶您理解香氣背後的語言，並創作屬於自己的人格香氛或空間香氣。
+                  </p>
+                  <ul class="service-panel-list">
+                    <li>氣味記憶</li>
+                    <li>香氣結構</li>
+                    <li>調香比例</li>
+                    <li>情緒與能量連結</li>
+                  </ul>
+                  <div class="service-panel-actions">
+                    <a href="#" class="service-panel-cta">立即預約</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <section class="service-detail" aria-label="課程補充介紹">
+      <div class="service-detail-frame">
+        <div class="service-detail-media">
+          <img src="images/s4.png" alt="芳香療法課程空間與植物氣味體驗" />
+        </div>
+        <div class="service-detail-copy">
+          <div class="service-detail-copy-inner">
+            <h2 class="service-detail-title">把香氣帶回日常，讓照護真正發生</h2>
+            <p class="service-detail-text">
+              我們期待每一堂課都不只是短暫的體驗，而是一種能延伸回生活裡的陪伴。從氣味與情緒的連結、植物精油的選擇，到更貼近個人狀態的應用方式，課程內容會一步一步帶你建立屬於自己的照護節奏。
+            </p>
+            <p class="service-detail-text">
+              無論你正在尋找放鬆、平衡、創作靈感，或只是想重新感受身體與內在的狀態，AromaFonda
+              都希望透過溫柔且有方法的引導，陪你把香氣真正帶進每一天。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-quote" aria-label="課程引言">
+      <div class="service-quote-inner">
+        <p class="service-quote-text">
+          「香氣不是為了讓你逃離生活，而是陪你在生活裡，重新回到自己。」
+        </p>
+      </div>
+    </section>
+
+    <section class="service-detail" aria-label="課程理念延伸">
+      <div class="service-detail-frame service-detail-frame--reverse">
+        <div class="service-detail-copy">
+          <div class="service-detail-copy-inner">
+            <h2 class="service-detail-title">
+              讓每一次接觸香氣，都成為更理解自己的開始
+            </h2>
+            <p class="service-detail-text">
+              香氣的力量，不只存在於當下的感受，也存在於它如何慢慢進入生活。當你開始理解植物氣味與身體狀態、情緒節奏之間的關係，照護就不再只是片段的放鬆，而會變成一種更穩定、更貼近自己的支持方式。
+            </p>
+            <p class="service-detail-text">
+              我們希望透過課程與陪伴，把抽象的療癒感受轉化成可以實踐的日常方法，讓你在忙碌之中，依然能保有一個回到呼吸、回到感受、也回到自己的空間。
+            </p>
+          </div>
+        </div>
+        <div class="service-detail-media">
+          <img src="images/s5.png" alt="芳香療法與日常照護延伸體驗" />
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="contact-container">
+        <div class="footer-grid">
+          <div class="footer-column footer-links">
+            <h3 class="footer-title">探索 AromaFonda</h3>
+            <p class="footer-text">日本嗅覺反應分析</p>
+            <p class="footer-text">法國精選有機植物精油</p>
+            <p class="footer-text">Aoqi 酒香聯名擴香瓶</p>
+            <p class="footer-text">課程與香氣體驗</p>
+          </div>
+          <div class="footer-column footer-connect">
+            <h3 class="footer-title">聯絡方式</h3>
+            <p class="footer-text">
+              Email｜<a href="mailto:Aroma.fonda@gmail.com"
+                >Aroma.fonda@gmail.com</a
+              >
+            </p>
+            <p class="footer-text">LINE｜@aromafonda</p>
+            <p class="footer-text">Instagram｜@aromafonda</p>
+          </div>
+          <div class="footer-column footer-promise">
+            <h3 class="footer-title">我們的理念</h3>
+            <p class="footer-text">
+              我們相信，香氣不只是產品，<br />而是一種陪伴身心的方式。
+            </p>
+            <p class="footer-text">
+              以嗅覺為起點，融合植物與科學，<br />用溫柔而有依據的方式，<br />陪你回到真正的自己。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

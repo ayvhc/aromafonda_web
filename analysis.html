@@ -10,12 +10,15 @@
     <nav class="navbar">
       <div class="nav-container">
         <a href="index.html" class="navbar-logo">
-          <img src="images/logo.png" alt="AromaFonda" />
+          <span class="navbar-logo-stack">
+            <img class="navbar-logo-default" src="images/logo.png" alt="AromaFonda" />
+            <img class="navbar-logo-hover" src="images/logo3.png" alt="" aria-hidden="true" />
+          </span>
         </a>
         <ul class="nav-links">
           <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
           <li><a href="./adnaturam.html">法國有機植物精油</a></li>
-          <li><a href="#services">課程與服務</a></li>
+          <li><a href="./service.html">課程與服務</a></li>
           <li><a href="/about.html">關於我們</a></li>
           <li><a href="#contact">聯絡我們</a></li>
         </ul>
@@ -245,9 +248,10 @@
       (() => {
         const navbar = document.querySelector(".analysis-page .navbar");
         const bridge = document.querySelector(".analysis-bridge");
-        const navbarLogoImage = document.querySelector(".analysis-page .navbar-logo img");
+        const navbarLogoDefault = document.querySelector(".analysis-page .navbar-logo-default");
+        const navbarLogoHover = document.querySelector(".analysis-page .navbar-logo-hover");
 
-        if (!navbar || !bridge || !navbarLogoImage) {
+        if (!navbar || !bridge || !navbarLogoDefault || !navbarLogoHover) {
           return;
         }
 
@@ -258,7 +262,8 @@
           const shouldUseLightTheme = window.scrollY >= triggerPoint;
 
           navbar.classList.toggle("is-light-analysis", shouldUseLightTheme);
-          navbarLogoImage.src = shouldUseLightTheme ? "images/logo2.png" : "images/logo.png";
+          navbarLogoDefault.src = shouldUseLightTheme ? "images/logo2.png" : "images/logo.png";
+          navbarLogoHover.src = shouldUseLightTheme ? "images/logo4.png" : "images/logo3.png";
           ticking = false;
         };
 
