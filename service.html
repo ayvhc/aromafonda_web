@@ -21,19 +21,294 @@
         color: #f3ece4;
       }
 
+      .service-page.menu-open {
+        overflow: hidden;
+      }
+
       .service-page .navbar {
-        background-color: #4a3427;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 88px;
+        background: transparent;
+        z-index: 1200;
+        transition: color 0.3s ease;
+      }
+
+      .service-page .menu-toggle,
+      .service-page .navbar-cta {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .service-page .menu-toggle {
+        left: clamp(56px, 5vw, 64px);
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        color: #ffffff;
+        font: inherit;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          color 0.3s ease,
+          opacity 0.28s ease;
+        position: absolute;
+      }
+
+      .service-page .menu-toggle:hover,
+      .service-page .menu-toggle:focus-visible,
+      .service-page .navbar-cta:hover,
+      .service-page .navbar-cta:focus-visible,
+      .service-page .side-drawer a:hover,
+      .service-page .side-drawer a:focus-visible {
+        opacity: 0.68;
+      }
+
+      .service-page .menu-toggle__icon {
+        position: relative;
+        width: 20px;
+        height: 14px;
+        flex: 0 0 20px;
+      }
+
+      .service-page .menu-toggle__icon span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform-origin: center;
+        transition:
+          background-color 0.3s ease,
+          top 0.28s ease,
+          transform 0.28s ease,
+          opacity 0.28s ease;
+      }
+
+      .service-page .menu-toggle__icon span:first-child {
+        top: 3px;
+      }
+
+      .service-page .menu-toggle__icon span:last-child {
+        top: 11px;
+      }
+
+      .service-page.menu-open .menu-toggle__icon span:first-child {
+        top: 7px;
+        transform: rotate(45deg);
+      }
+
+      .service-page.menu-open .menu-toggle__icon span:last-child {
+        top: 7px;
+        transform: rotate(-45deg);
+      }
+
+      .service-page .menu-toggle__label {
+        display: inline-block;
+        line-height: 1;
+      }
+
+      .service-page .navbar.navbar--dark,
+      .service-page .navbar.navbar--dark a,
+      .service-page .navbar.navbar--dark .menu-toggle,
+      .service-page .navbar.navbar--dark .menu-toggle__label,
+      .service-page .navbar.navbar--dark .navbar-cta {
+        color: #1f1b18;
+      }
+
+      .service-page .navbar.navbar--dark .menu-toggle__icon span {
+        background-color: #1f1b18;
+      }
+
+      .service-page .navbar.navbar--dark .menu-toggle::after,
+      .service-page .navbar.navbar--dark .navbar-logo::after,
+      .service-page .navbar.navbar--dark .navbar-cta::after {
+        background: #1f1b18;
+      }
+
+      .service-page.menu-open .menu-toggle,
+      .service-page.menu-open .menu-toggle__label {
+        color: #3e3a36;
+      }
+
+      .service-page.menu-open .menu-toggle__icon span {
+        background-color: #3e3a36;
+      }
+
+      .service-page.menu-open .menu-toggle::after {
+        background: #3e3a36;
+      }
+
+      .service-page .navbar-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        margin-left: 0;
+        text-decoration: none;
+      }
+
+      .service-page .menu-toggle::after,
+      .service-page .navbar-logo::after,
+      .service-page .navbar-cta::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 1px;
+        background: #ffffff;
+        transform: scaleX(0);
+        transform-origin: center center;
+        transition:
+          transform 0.28s ease,
+          background-color 0.3s ease;
+        pointer-events: none;
+      }
+
+      .service-page .navbar-logo::after {
+        bottom: -10px;
+      }
+
+      .service-page .menu-toggle:hover::after,
+      .service-page .menu-toggle:focus-visible::after,
+      .service-page .navbar-logo:hover::after,
+      .service-page .navbar-logo:focus-visible::after,
+      .service-page .navbar-cta:hover::after,
+      .service-page .navbar-cta:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .service-page .navbar-logo-stack {
+        width: min(32vw, 210px);
+        height: clamp(34px, 4.6vw, 44px);
+      }
+
+      .service-page .navbar-logo img {
+        height: 100%;
+        max-width: 100%;
+        transition: opacity 0.3s ease;
+      }
+
+      .service-page .navbar-cta {
+        right: clamp(56px, 5vw, 64px);
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: opacity 0.28s ease;
+        position: absolute;
+      }
+
+      .service-page .menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(22, 18, 15, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.38s ease,
+          visibility 0.38s ease;
+        z-index: 1100;
+      }
+
+      .service-page .side-drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(82vw, 312px);
+        padding: 120px 48px 48px 56px;
+        background: #f5efe6;
+        color: #3e3a36;
+        transform: translateX(-100%);
+        transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1150;
+        overflow-y: auto;
+      }
+
+      .service-page .side-drawer__nav {
+        display: block;
+      }
+
+      .service-page .side-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .service-page .side-drawer__nav a {
+        display: block;
+        color: #3e3a36;
+        text-decoration: none;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: 22px;
+        line-height: 1.9;
+        margin-bottom: 18px;
+        letter-spacing: 0.05em;
+        transition: opacity 0.28s ease;
+      }
+
+      .service-page .side-drawer__reserve {
+        margin-top: 34px;
+      }
+
+      .service-page .reserve-label {
+        margin: 0 0 10px;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        color: #8a837c;
+      }
+
+      .service-page .reserve-link {
+        display: block;
+        font-size: 16px;
+        color: #3e3a36;
+        text-decoration: none;
+        transition: opacity 0.28s ease;
+      }
+
+      .service-page.menu-open .menu-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .service-page.menu-open .side-drawer {
+        transform: translateX(0);
       }
 
       .service-page .contact-section {
-        background: #e4d9cb;
+        background:
+          linear-gradient(
+            135deg,
+            rgba(75, 46, 34, 0.96) 0%,
+            rgba(122, 78, 52, 0.9) 42%,
+            rgba(75, 46, 34, 0.94) 100%
+          );
         margin-top: 0;
+      }
+
+      .service-page .footer-title,
+      .service-page .footer-text,
+      .service-page .footer-text a {
+        color: #fffaf4;
       }
 
       .service-editorial {
         position: relative;
-        padding: 132px 0 148px;
-        min-height: 100vh;
+        padding: 188px 0 72px;
+        min-height: 84vh;
       }
 
       .service-editorial::before {
@@ -292,88 +567,151 @@
         color: #3f291d;
       }
 
-      .service-detail {
-        padding: 0;
+      .story-section {
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+        align-items: center;
+        column-gap: clamp(40px, 4.6vw, 60px);
+        row-gap: 0;
+        margin-top: 0;
+        padding: 220px 56px 120px;
         background: #e8d9c8;
       }
 
-      .service-detail:last-of-type {
-        margin-bottom: 144px;
+      .story-section__media {
+        min-width: 0;
       }
 
-      .service-detail-frame {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        width: 100%;
-        overflow: hidden;
-      }
-
-      .service-detail-media {
-        min-height: 560px;
-        padding-left: 32px;
-        padding-top: 32px;
-      }
-
-      .service-detail-media img {
+      .story-section__media img {
         display: block;
         width: 100%;
-        height: 100%;
+        aspect-ratio: 1.45 / 1;
         object-fit: cover;
       }
 
-      .service-detail-frame--reverse .service-detail-media {
-        padding-left: 0;
-        padding-right: 32px;
+      .story-section__content {
+        align-self: end;
+        max-width: 420px;
+        padding: 22px 0 8px;
+        color: #4a3123;
       }
 
-      .service-detail-copy {
-        display: flex;
-        align-items: center;
-        padding: 64px 72px;
-        color: #4f3526;
+      .story-section__title {
+        display: block;
+        transform: translateY(-60px);
+        margin: 0 0 -10px;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: clamp(40px, 4.2vw, 48px);
+        line-height: 1.2;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: #4a3123;
+        white-space: nowrap;
+      }
+
+      .story-section__text {
+        max-width: 34ch;
+        margin: 0;
+        font-size: 16px;
+        line-height: 2;
+        color: rgba(74, 49, 35, 0.84);
+      }
+
+      .featured-section {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.68fr) minmax(0, 1.32fr);
+        align-items: start;
+        gap: clamp(46px, 6vw, 92px);
+        padding: 112px 56px 136px;
         background: #e8d9c8;
       }
 
-      .service-detail-copy-inner {
-        max-width: 520px;
+      .featured-section__intro {
+        max-width: 360px;
+        padding-top: 10px;
+        color: #4a3123;
       }
 
-      .service-detail-title {
-        margin: 0 0 24px;
+      .featured-section__title {
+        margin: 0 0 55px;
         font-family:
           "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
-        font-size: clamp(32px, 4vw, 48px);
+        font-size: clamp(34px, 4.1vw, 50px);
         line-height: 1.18;
         font-weight: 500;
+        letter-spacing: 0.02em;
         color: #4a3123;
       }
 
-      .service-detail-text {
-        margin: 0 0 18px;
-        font-size: 16px;
-        line-height: 1.95;
-        color: rgba(79, 53, 38, 0.9);
-      }
-
-      .service-quote {
-        padding: 112px 32px;
-        background: #e8d9c8;
-      }
-
-      .service-quote-inner {
-        max-width: 920px;
-        margin: 0 auto;
-        text-align: center;
-      }
-
-      .service-quote-text {
+      .featured-section__description {
+        max-width: 31ch;
         margin: 0;
-        font-family:
-          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
-        font-size: clamp(28px, 4.4vw, 46px);
-        line-height: 1.55;
-        font-weight: 500;
-        color: #4a3123;
+        font-size: 15px;
+        line-height: 1.95;
+        color: rgba(74, 49, 35, 0.78);
+      }
+
+      .featured-section__gallery-wrap {
+        position: relative;
+        min-width: 0;
+        padding: 0 42px;
+      }
+
+      .featured-section__gallery-viewport {
+        overflow: hidden;
+      }
+
+      .featured-section__gallery-track {
+        display: flex;
+        gap: 28px;
+        min-width: 0;
+        transition: transform 0.45s ease;
+        will-change: transform;
+      }
+
+      .featured-gallery__arrow {
+        position: absolute;
+        top: 38%;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        background: transparent;
+        color: rgba(74, 49, 35, 0.76);
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        transition: opacity 0.24s ease, color 0.24s ease;
+      }
+
+      .featured-gallery__arrow:hover,
+      .featured-gallery__arrow:focus-visible {
+        opacity: 0.6;
+      }
+
+      .featured-gallery__arrow:disabled {
+        opacity: 0.22;
+        cursor: default;
+      }
+
+      .featured-gallery__arrow--left {
+        left: 0;
+      }
+
+      .featured-gallery__arrow--right {
+        right: 0;
+      }
+
+      .featured-card {
+        min-width: 0;
+        flex: 0 0 calc((100% - 28px) / 2);
+      }
+
+      .featured-card__image {
+        display: block;
+        width: 100%;
+        aspect-ratio: 0.84 / 1;
+        object-fit: cover;
       }
 
       .service-panel:hover,
@@ -418,6 +756,11 @@
       }
 
       @media (max-width: 1180px) {
+        .service-editorial {
+          padding: 168px 0 68px;
+          min-height: 80vh;
+        }
+
         .service-panels {
           gap: 14px;
         }
@@ -430,18 +773,55 @@
           padding: 34px 24px 24px;
         }
 
-        .service-detail-copy {
-          padding: 52px 48px;
+        .story-section {
+          column-gap: 44px;
+          row-gap: 0;
+          margin-top: 0;
+          padding: 176px 40px 96px;
         }
 
-        .service-quote {
-          padding: 92px 32px;
+        .featured-section {
+          grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+          gap: 40px;
+          padding: 92px 40px 112px;
+        }
+
+        .featured-section__gallery-wrap {
+          padding: 0 36px;
+        }
+
+        .featured-section__gallery-track {
+          gap: 22px;
+        }
+
+        .featured-card {
+          flex-basis: calc((100% - 22px) / 2);
         }
       }
 
       @media (max-width: 980px) {
         .service-editorial {
-          padding: 118px 0 104px;
+          padding: 108px 0 56px;
+          min-height: auto;
+        }
+
+        .service-page .navbar {
+          height: 88px;
+        }
+
+        .service-page .menu-toggle {
+          left: 36px;
+        }
+
+        .service-page .navbar-cta {
+          right: 36px;
+          font-size: 12px;
+          letter-spacing: 0.14em;
+        }
+
+        .service-page .side-drawer {
+          width: min(82vw, 296px);
+          padding: 116px 26px 30px;
         }
 
         .service-frame {
@@ -466,36 +846,143 @@
           min-height: 0;
         }
 
-        .service-detail {
+        .story-section {
+          grid-template-columns: 1fr;
+          row-gap: 34px;
+          margin-top: 0;
+          padding: 140px 32px 84px;
+        }
+
+        .story-section__content {
+          max-width: 100%;
           padding: 0;
         }
 
-        .service-detail:last-of-type {
-          margin-bottom: 112px;
+        .story-section__title {
+          white-space: normal;
         }
 
-        .service-detail-frame {
+        .featured-section {
           grid-template-columns: 1fr;
+          gap: 34px;
+          padding: 82px 32px 98px;
         }
 
-        .service-detail-media {
-          min-height: 360px;
-          padding-left: 0;
+        .featured-section__intro {
+          max-width: 520px;
           padding-top: 0;
         }
 
-        .service-detail-frame--reverse .service-detail-media {
-          padding-right: 0;
+        .featured-section__gallery-wrap {
+          padding: 0;
         }
 
-        .service-quote {
-          padding: 80px 28px;
+        .featured-section__gallery-viewport {
+          overflow: visible;
         }
+
+        .featured-section__gallery-track {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 24px;
+          transform: none !important;
+        }
+
+        .featured-card {
+          flex-basis: auto;
+        }
+
+        .featured-gallery__arrow {
+          display: none;
+        }
+
+        .featured-card__image {
+          aspect-ratio: 1.32 / 1;
+        }
+
       }
 
       @media (max-width: 768px) {
         .service-editorial {
-          padding: 108px 0 92px;
+          padding: 96px 0 48px;
+          min-height: auto;
+        }
+
+        .service-page .navbar {
+          height: 84px;
+        }
+
+        .service-page .navbar-logo-stack {
+          width: min(42vw, 168px);
+          height: 34px;
+        }
+
+        .service-page .menu-toggle {
+          left: 20px;
+          gap: 10px;
+          font-size: 10px;
+          letter-spacing: 0.18em;
+        }
+
+        .service-page .navbar-cta {
+          right: 20px;
+          font-size: 11px;
+          letter-spacing: 0.08em;
+        }
+
+        .service-page .side-drawer {
+          top: 0;
+          bottom: 0;
+          width: min(92vw, 320px);
+          padding: 102px 28px 28px 28px;
+        }
+
+        .service-page .side-drawer__nav a {
+          font-size: 20px;
+          line-height: 1.8;
+          margin-bottom: 16px;
+        }
+
+        .story-section {
+          row-gap: 28px;
+          margin-top: 0;
+          padding: 108px 22px 68px;
+        }
+
+        .story-section__media img {
+          aspect-ratio: 1.22 / 1;
+        }
+
+        .story-section__title {
+          transform: translateY(-20px);
+          margin: 0 0 2px;
+          font-size: 34px;
+          white-space: normal;
+        }
+
+        .story-section__text {
+          font-size: 15px;
+          line-height: 1.9;
+        }
+
+        .featured-section {
+          gap: 28px;
+          padding: 68px 22px 80px;
+        }
+
+        .featured-section__title {
+          margin-bottom: 30px;
+          font-size: 30px;
+          line-height: 1.22;
+        }
+
+        .featured-section__description {
+          font-size: 14px;
+          line-height: 1.85;
+        }
+
+        .featured-card__image {
+          aspect-ratio: 1.16 / 1;
         }
 
         .service-title {
@@ -541,84 +1028,80 @@
           margin-top: 0;
         }
 
-        .service-detail {
-          padding: 0;
-        }
-
-        .service-detail:last-of-type {
-          margin-bottom: 88px;
-        }
-
-        .service-detail-media {
-          min-height: 280px;
-          padding-left: 0;
-          padding-top: 0;
-        }
-
-        .service-detail-frame--reverse .service-detail-media {
-          padding-right: 0;
-        }
-
-        .service-quote {
-          padding: 64px 22px;
-        }
-
-        .service-detail-copy {
-          padding: 36px 22px 40px;
-        }
-
-        .service-detail-title {
-          margin-bottom: 18px;
-          font-size: 30px;
-        }
-
-        .service-quote-text {
-          font-size: 28px;
-          line-height: 1.6;
-        }
-
-        .service-detail-text {
-          font-size: 15px;
-          line-height: 1.85;
-        }
       }
     </style>
   </head>
   <body class="service-page">
     <nav class="navbar">
-      <div class="nav-container">
-        <a href="index.html" class="navbar-logo">
-          <span class="navbar-logo-stack">
-            <img
-              class="navbar-logo-default"
-              src="images/logo.png"
-              alt="AromaFonda"
-            />
-            <img
-              class="navbar-logo-hover"
-              src="images/logo3.png"
-              alt=""
-              aria-hidden="true"
-            />
-          </span>
-        </a>
-        <ul class="nav-links">
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="sideDrawer"
+        aria-label="Open menu"
+      >
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+        <span class="menu-toggle__label">MENU</span>
+      </button>
+
+      <a href="index.html" class="navbar-logo">
+        <span class="navbar-logo-stack">
+          <img
+            class="navbar-logo-image"
+            src="images/logo3.png"
+            alt="AromaFonda"
+          />
+        </span>
+      </a>
+
+      <a
+        href="https://forms.gle/MfHVCKAoVr56w6hc6"
+        class="navbar-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        >立即預約</a
+      >
+    </nav>
+
+    <div class="menu-overlay" hidden></div>
+
+    <aside
+      class="side-drawer"
+      id="sideDrawer"
+      aria-hidden="true"
+      aria-label="Site navigation"
+    >
+      <nav class="side-drawer__nav" aria-label="Drawer menu">
+        <ul class="side-nav-links">
+          <li><a href="index.html">首頁</a></li>
           <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
           <li><a href="./adnaturam.html">法國有機植物精油</a></li>
           <li><a href="./service.html">課程與服務</a></li>
           <li><a href="/about.html">關於我們</a></li>
           <li><a href="#contact">聯絡我們</a></li>
         </ul>
-        <a href="#contact" class="contact-btn">立即預約</a>
+      </nav>
+      <div class="side-drawer__reserve">
+        <p class="reserve-label">RESERVE</p>
+        <a
+          href="https://forms.gle/MfHVCKAoVr56w6hc6"
+          class="reserve-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >立即預約諮詢</a
+        >
       </div>
-    </nav>
+    </aside>
 
     <main class="service-editorial">
       <div class="service-frame">
         <header class="service-heading">
-          <h1 class="service-title">健康課程</h1>
+          <h1 class="service-title">課程與香氣體驗</h1>
           <p class="service-subtitle">
-            以香氣與自然療法，重新連結身心與生活節奏
+            以香氣與自然療法，重新連結身心與生活的節奏
           </p>
           <div class="service-divider" aria-hidden="true"></div>
         </header>
@@ -633,16 +1116,22 @@
               <div class="service-panel-reveal">
                 <div class="service-panel-reveal-copy">
                   <p class="service-panel-text">
-                    從日常開始，為身心重啟自然節奏。融合芳香療法與身體照護觀念，帶您從呼吸、循環、睡眠、情緒四大面向了解身體訊號，陪伴不同年齡層找到更適合自己的健康節奏。
+                    從日常出發，陪伴身心慢慢回到自然節奏。融合芳香療法與身體照護觀念，帶你從呼吸、循環、睡眠與情緒四個面向理解身體訊號，陪伴不同年齡層找到更適合自己的健康步調。
                   </p>
                   <ul class="service-panel-list">
-                    <li>壓力舒緩</li>
-                    <li>助眠放鬆</li>
-                    <li>循環代謝</li>
-                    <li>銀髮族芳香照護</li>
+                    <li>緩解壓力與情緒</li>
+                    <li>改善睡眠與放鬆</li>
+                    <li>調整循環節奏</li>
+                    <li>日常健康照護</li>
                   </ul>
                   <div class="service-panel-actions">
-                    <a href="#" class="service-panel-cta">立即預約</a>
+                    <a
+                      href="https://forms.gle/MfHVCKAoVr56w6hc6"
+                      class="service-panel-cta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >立即預約</a
+                    >
                   </div>
                 </div>
               </div>
@@ -658,15 +1147,21 @@
               <div class="service-panel-reveal">
                 <div class="service-panel-reveal-copy">
                   <p class="service-panel-text">
-                    讓肌膚回歸純粹，也讓心重新綻放。以天然植物精華結合芳香學與肌膚生理學，從清潔、保濕到抗老修護，帶您了解如何安全調製芳香保養品。
+                    讓肌膚回歸純粹，也讓日常保養更貼近自己。以天然植物精華結合芳香學與肌膚照護觀念，從清潔、保濕到修護，帶你了解如何以更安心的方式調製與使用芳香保養品。
                   </p>
                   <ul class="service-panel-list">
-                    <li>植物油與純露應用</li>
-                    <li>精油配方設計</li>
-                    <li>膚質調理實作</li>
+                    <li>認識膚質與日常保養邏輯</li>
+                    <li>天然原料的安全使用方式</li>
+                    <li>調製屬於自己的保養配方</li>
                   </ul>
                   <div class="service-panel-actions">
-                    <a href="#" class="service-panel-cta">立即預約</a>
+                    <a
+                      href="https://forms.gle/MfHVCKAoVr56w6hc6"
+                      class="service-panel-cta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >立即預約</a
+                    >
                   </div>
                 </div>
               </div>
@@ -682,16 +1177,21 @@
               <div class="service-panel-reveal">
                 <div class="service-panel-reveal-copy">
                   <p class="service-panel-text">
-                    用香氣說故事，調出專屬於你的能量頻率。從氣味記憶、香氣結構、調香比例，到能量與情緒的連結，帶您理解香氣背後的語言，並創作屬於自己的人格香氛或空間香氣。
+                    用香氣表達記憶、情緒與風格，創作屬於自己的氣味語言。從氣味記憶、香氣結構與調香比例出發，帶你理解香氣背後的層次與連結，並創作屬於自己的人格香氣或空間香氛。
                   </p>
                   <ul class="service-panel-list">
-                    <li>氣味記憶</li>
-                    <li>香氣結構</li>
-                    <li>調香比例</li>
-                    <li>情緒與能量連結</li>
+                    <li>喚醒對氣味的感受與記憶</li>
+                    <li>理解香氣的組成與變化</li>
+                    <li>創作屬於自己的氣味風格</li>
                   </ul>
                   <div class="service-panel-actions">
-                    <a href="#" class="service-panel-cta">立即預約</a>
+                    <a
+                      href="https://forms.gle/MfHVCKAoVr56w6hc6"
+                      class="service-panel-cta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >立即預約</a
+                    >
                   </div>
                 </div>
               </div>
@@ -701,52 +1201,84 @@
       </div>
     </main>
 
-    <section class="service-detail" aria-label="課程補充介紹">
-      <div class="service-detail-frame">
-        <div class="service-detail-media">
-          <img src="images/s4.png" alt="芳香療法課程空間與植物氣味體驗" />
-        </div>
-        <div class="service-detail-copy">
-          <div class="service-detail-copy-inner">
-            <h2 class="service-detail-title">把香氣帶回日常，讓照護真正發生</h2>
-            <p class="service-detail-text">
-              我們期待每一堂課都不只是短暫的體驗，而是一種能延伸回生活裡的陪伴。從氣味與情緒的連結、植物精油的選擇，到更貼近個人狀態的應用方式，課程內容會一步一步帶你建立屬於自己的照護節奏。
-            </p>
-            <p class="service-detail-text">
-              無論你正在尋找放鬆、平衡、創作靈感，或只是想重新感受身體與內在的狀態，AromaFonda
-              都希望透過溫柔且有方法的引導，陪你把香氣真正帶進每一天。
-            </p>
-          </div>
-        </div>
+    <section class="story-section" aria-label="Omai story">
+      <div class="story-section__media">
+        <img src="images/s8.jpg" alt="Omai aromatic experience" />
       </div>
-    </section>
-
-    <section class="service-quote" aria-label="課程引言">
-      <div class="service-quote-inner">
-        <p class="service-quote-text">
-          「香氣不是為了讓你逃離生活，而是陪你在生活裡，重新回到自己。」
+      <div class="story-section__content">
+        <h2 class="story-section__title">以香氣陪伴日常</h2>
+        <p class="story-section__text">
+          我們期待每一堂課，不只是短暫的體驗，而是能延伸至日常的陪伴。從氣味與情緒的連結、精油的選擇，到貼近個人狀態的應用，帶你一步步建立屬於自己的照護節奏。
         </p>
       </div>
     </section>
 
-    <section class="service-detail" aria-label="課程理念延伸">
-      <div class="service-detail-frame service-detail-frame--reverse">
-        <div class="service-detail-copy">
-          <div class="service-detail-copy-inner">
-            <h2 class="service-detail-title">
-              讓每一次接觸香氣，都成為更理解自己的開始
-            </h2>
-            <p class="service-detail-text">
-              香氣的力量，不只存在於當下的感受，也存在於它如何慢慢進入生活。當你開始理解植物氣味與身體狀態、情緒節奏之間的關係，照護就不再只是片段的放鬆，而會變成一種更穩定、更貼近自己的支持方式。
-            </p>
-            <p class="service-detail-text">
-              我們希望透過課程與陪伴，把抽象的療癒感受轉化成可以實踐的日常方法，讓你在忙碌之中，依然能保有一個回到呼吸、回到感受、也回到自己的空間。
-            </p>
+    <section class="featured-section" aria-label="Featured destinations">
+      <div class="featured-section__intro">
+        <h2 class="featured-section__title">
+          讓每一次與香氣的相遇，<br />
+          成為理解自己的開始
+        </h2>
+        <p class="featured-section__description">
+          無論你正在尋找放鬆、平衡，或創作靈感，
+          也或只是想回到身體與內在的感受， AromaFonda 以溫柔的陪伴，
+          讓香氣自然融入日常。
+        </p>
+      </div>
+
+      <div class="featured-section__gallery-wrap">
+        <button
+          class="featured-gallery__arrow featured-gallery__arrow--left"
+          type="button"
+          aria-label="Previous"
+          disabled
+        >
+          &#8592;
+        </button>
+
+        <div class="featured-section__gallery-viewport">
+          <div class="featured-section__gallery-track">
+            <article class="featured-card">
+              <img
+                class="featured-card__image"
+                src="images/s1.jpg"
+                alt="Featured placeholder one"
+              />
+            </article>
+
+            <article class="featured-card">
+              <img
+                class="featured-card__image"
+                src="images/s2.jpg"
+                alt="Featured placeholder two"
+              />
+            </article>
+
+            <article class="featured-card">
+              <img
+                class="featured-card__image"
+                src="images/s6.jpg"
+                alt="Featured placeholder three"
+              />
+            </article>
+
+            <article class="featured-card">
+              <img
+                class="featured-card__image"
+                src="images/s7.jpg"
+                alt="Featured placeholder four"
+              />
+            </article>
           </div>
         </div>
-        <div class="service-detail-media">
-          <img src="images/s5.png" alt="芳香療法與日常照護延伸體驗" />
-        </div>
+
+        <button
+          class="featured-gallery__arrow featured-gallery__arrow--right"
+          type="button"
+          aria-label="Next"
+        >
+          &#8594;
+        </button>
       </div>
     </section>
 
@@ -755,10 +1287,9 @@
         <div class="footer-grid">
           <div class="footer-column footer-links">
             <h3 class="footer-title">探索 AromaFonda</h3>
-            <p class="footer-text">日本嗅覺反應分析</p>
-            <p class="footer-text">法國精選有機植物精油</p>
-            <p class="footer-text">Aoqi 酒香聯名擴香瓶</p>
-            <p class="footer-text">課程與香氣體驗</p>
+            <p class="footer-text"><a href="./analysis.html">日本嗅覺反應分析</a></p>
+            <p class="footer-text"><a href="./adnaturam.html">法國精選有機植物精油</a></p>
+            <p class="footer-text"><a href="./service.html">香氣課程與體驗</a></p>
           </div>
           <div class="footer-column footer-connect">
             <h3 class="footer-title">聯絡方式</h3>
@@ -782,5 +1313,184 @@
         </div>
       </div>
     </section>
+
+    <script>
+      (() => {
+        const body = document.body;
+        const navbar = document.querySelector(".navbar");
+        const hero = document.querySelector(".service-editorial");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navbarLogoImage = document.querySelector(".navbar-logo-image");
+        const overlay = document.querySelector(".menu-overlay");
+        const sideDrawer = document.getElementById("sideDrawer");
+        const featuredTrack = document.querySelector(
+          ".featured-section__gallery-track"
+        );
+        const featuredCards = Array.from(
+          document.querySelectorAll(".featured-section .featured-card")
+        );
+        const featuredPrev = document.querySelector(
+          ".featured-gallery__arrow--left"
+        );
+        const featuredNext = document.querySelector(
+          ".featured-gallery__arrow--right"
+        );
+        const focusableSelectors =
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        if (!navbar || !hero || !menuToggle || !overlay || !sideDrawer) {
+          return;
+        }
+
+        const focusableElements = () =>
+          Array.from(sideDrawer.querySelectorAll(focusableSelectors));
+
+        const isOpen = () => body.classList.contains("menu-open");
+
+        const openMenu = () => {
+          body.classList.add("menu-open");
+          overlay.hidden = false;
+          sideDrawer.setAttribute("aria-hidden", "false");
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuToggle.setAttribute("aria-label", "Close menu");
+
+          window.requestAnimationFrame(() => {
+            const [firstFocusable] = focusableElements();
+            if (firstFocusable) {
+              firstFocusable.focus();
+            }
+          });
+        };
+
+        const closeMenu = () => {
+          body.classList.remove("menu-open");
+          sideDrawer.setAttribute("aria-hidden", "true");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+
+          window.setTimeout(() => {
+            if (!isOpen()) {
+              overlay.hidden = true;
+            }
+          }, 380);
+
+          menuToggle.focus();
+        };
+
+        const toggleMenu = () => {
+          if (isOpen()) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        };
+
+        const handleKeydown = (event) => {
+          if (!isOpen()) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeMenu();
+            return;
+          }
+
+          if (event.key !== "Tab") {
+            return;
+          }
+
+          const items = [menuToggle, ...focusableElements()];
+          if (!items.length) {
+            return;
+          }
+
+          const first = items[0];
+          const last = items[items.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        };
+
+        menuToggle.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", closeMenu);
+
+        sideDrawer.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            closeMenu();
+          });
+        });
+
+        if (featuredTrack && featuredCards.length && featuredPrev && featuredNext) {
+          let featuredIndex = 0;
+
+          const updateFeaturedGallery = () => {
+            const stackedView = window.innerWidth <= 980;
+            const maxIndex = stackedView ? 0 : 1;
+
+            if (featuredIndex > maxIndex) {
+              featuredIndex = maxIndex;
+            }
+
+            if (stackedView) {
+              featuredTrack.style.transform = "translateX(0)";
+            } else {
+              const cardWidth = featuredCards[0].getBoundingClientRect().width;
+              const trackStyle = window.getComputedStyle(featuredTrack);
+              const gap = parseFloat(trackStyle.gap || 0);
+              const pageWidth = (cardWidth * 2) + gap;
+              featuredTrack.style.transform = `translateX(-${featuredIndex * pageWidth}px)`;
+            }
+
+            featuredPrev.disabled = featuredIndex === 0 || stackedView;
+            featuredNext.disabled = featuredIndex >= maxIndex || stackedView;
+          };
+
+          featuredPrev.addEventListener("click", () => {
+            if (featuredIndex > 0) {
+              featuredIndex -= 1;
+              updateFeaturedGallery();
+            }
+          });
+
+          featuredNext.addEventListener("click", () => {
+            if (featuredIndex < 1) {
+              featuredIndex += 1;
+              updateFeaturedGallery();
+            }
+          });
+
+          window.addEventListener("resize", updateFeaturedGallery);
+          updateFeaturedGallery();
+        }
+
+        const updateNavbarTheme = () => {
+          const heroRect = hero.getBoundingClientRect();
+          const navbarRect = navbar.getBoundingClientRect();
+          const logoTriggerY = navbarRect.top + (navbarRect.height * 0.5);
+          const passedHero = heroRect.bottom <= logoTriggerY;
+          const nextLogoSrc = passedHero ? "images/logo4.png" : "images/logo3.png";
+
+          navbar.classList.toggle("navbar--dark", passedHero);
+
+          if (navbarLogoImage && !navbarLogoImage.src.endsWith(nextLogoSrc)) {
+            navbarLogoImage.src = nextLogoSrc;
+          }
+        };
+
+        window.addEventListener("scroll", updateNavbarTheme, {
+          passive: true,
+        });
+        window.addEventListener("resize", updateNavbarTheme);
+        window.addEventListener("load", updateNavbarTheme);
+        updateNavbarTheme();
+
+        document.addEventListener("keydown", handleKeydown);
+      })();
+    </script>
   </body>
 </html>

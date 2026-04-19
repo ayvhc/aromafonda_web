@@ -557,6 +557,12 @@ html {
     transform: scale(1.42) translateY(-30px);
 }
 
+.experience-card-link .card-image img.card-image-full {
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.15);
+}
+
 .card-label {
     background: #EDE7DC;
     padding: 28px 34px;
@@ -1075,64 +1081,6 @@ html {
         bottom: 18px;
         font-size: 12px;
     }
-}
-
-.analysis-page .navbar {
-    background-color: #4A3427;
-    border-bottom: 1px solid transparent;
-    transition: background-color 0.35s ease, border-color 0.35s ease;
-}
-
-.analysis-page .navbar a,
-.analysis-page .nav-link {
-    font-family: sans-serif;
-    color: #E8DCD0;
-    transition: color 0.35s ease;
-}
-
-.analysis-page .nav-links a:hover,
-.analysis-page .nav-links a:focus-visible {
-    color: #fff;
-}
-
-.analysis-page .navbar .contact-btn {
-    font-family: sans-serif;
-    border: 1px solid #E8DCD0;
-    color: #E8DCD0;
-    background: transparent;
-    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
-}
-
-.analysis-page .navbar .contact-btn:hover {
-    background: #E8DCD0;
-    color: #5A3828;
-}
-
-.analysis-page .navbar.is-light-analysis {
-    background-color: #ffffff;
-    border-bottom: 1px solid rgba(110, 77, 139, 0.08);
-}
-
-.analysis-page .navbar.is-light-analysis a,
-.analysis-page .navbar.is-light-analysis .nav-link,
-.analysis-page .navbar.is-light-analysis .logo,
-.analysis-page .navbar.is-light-analysis .contact-btn {
-    color: #6E4D8B;
-}
-
-.analysis-page .navbar.is-light-analysis .contact-btn {
-    border: 1px solid #8B72A3;
-    background: transparent;
-}
-
-.analysis-page .navbar.is-light-analysis .contact-btn:hover {
-    background: rgba(110, 77, 139, 0.06);
-    color: #6E4D8B;
-}
-
-.analysis-page .navbar.is-light-analysis .nav-links a:hover,
-.analysis-page .navbar.is-light-analysis .nav-links a:focus-visible {
-    color: #5D3F77;
 }
 
 .analysis-bridge {
@@ -2093,10 +2041,6 @@ html {
 .adnaturam-page .contact-section {
     background: #ffffff;
     border-top: 1px solid rgba(122, 90, 67, 0.14);
-}
-
-.adnaturam-page .contact-btn {
-    border-radius: var(--adn-radius-control);
 }
 
 .adnaturam-hero,

@@ -5,36 +5,402 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About - AromaFonda</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .about-page.menu-open {
+        overflow: hidden;
+      }
+
+      .about-page .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 88px;
+        background: transparent;
+        z-index: 1200;
+        font-family: sans-serif;
+      }
+
+      .about-page .navbar a,
+      .about-page .navbar button,
+      .about-page .navbar span {
+        font-family: sans-serif;
+      }
+
+      .about-page .navbar a.navbar-cta {
+        color: #1f1b18;
+      }
+
+      .about-page .menu-toggle,
+      .about-page .navbar-cta {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .about-page .menu-toggle {
+        left: clamp(56px, 5vw, 64px);
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        color: #1f1b18;
+        font: inherit;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: opacity 0.28s ease;
+      }
+
+      .about-page .menu-toggle:hover,
+      .about-page .menu-toggle:focus-visible,
+      .about-page .navbar-cta:hover,
+      .about-page .navbar-cta:focus-visible,
+      .about-page .side-drawer a:hover,
+      .about-page .side-drawer a:focus-visible {
+        opacity: 0.68;
+      }
+
+      .about-page .menu-toggle__icon {
+        position: relative;
+        width: 20px;
+        height: 14px;
+        flex: 0 0 20px;
+      }
+
+      .about-page .menu-toggle__icon span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform-origin: center;
+        transition:
+          background-color 0.3s ease,
+          top 0.28s ease,
+          transform 0.28s ease,
+          opacity 0.28s ease;
+      }
+
+      .about-page .menu-toggle__icon span:first-child {
+        top: 3px;
+      }
+
+      .about-page .menu-toggle__icon span:last-child {
+        top: 11px;
+      }
+
+      .about-page.menu-open .menu-toggle__icon span:first-child {
+        top: 7px;
+        transform: rotate(45deg);
+      }
+
+      .about-page.menu-open .menu-toggle__icon span:last-child {
+        top: 7px;
+        transform: rotate(-45deg);
+      }
+
+      .about-page .menu-toggle__label {
+        display: inline-block;
+        line-height: 1;
+      }
+
+      .about-page.menu-open .menu-toggle,
+      .about-page.menu-open .menu-toggle__label {
+        color: #3e3a36;
+      }
+
+      .about-page.menu-open .menu-toggle__icon span {
+        background-color: #3e3a36;
+      }
+
+      .about-page.menu-open .menu-toggle::after {
+        background: #3e3a36;
+      }
+
+      .about-page .navbar-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        margin-left: 0;
+        text-decoration: none;
+        transition:
+          opacity 0.28s ease,
+          visibility 0.28s ease;
+      }
+
+      .about-page .navbar-logo.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .about-page .menu-toggle::after,
+      .about-page .navbar-logo::after,
+      .about-page .navbar-cta::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 1px;
+        background: #1f1b18;
+        transform: scaleX(0);
+        transform-origin: center center;
+        transition:
+          transform 0.28s ease,
+          background-color 0.3s ease;
+        pointer-events: none;
+      }
+
+      .about-page .navbar-logo::after {
+        bottom: -10px;
+      }
+
+      .about-page .menu-toggle:hover::after,
+      .about-page .menu-toggle:focus-visible::after,
+      .about-page .navbar-logo:hover::after,
+      .about-page .navbar-logo:focus-visible::after,
+      .about-page .navbar-cta:hover::after,
+      .about-page .navbar-cta:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .about-page .navbar-logo-stack {
+        width: min(32vw, 210px);
+        height: clamp(34px, 4.6vw, 44px);
+      }
+
+      .about-page .navbar-logo img {
+        height: 100%;
+        max-width: 100%;
+        transition: opacity 0.3s ease;
+      }
+
+      .about-page .navbar-cta {
+        right: clamp(56px, 5vw, 64px);
+        color: #1f1b18;
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: opacity 0.28s ease;
+      }
+
+      .about-page .menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(22, 18, 15, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.38s ease,
+          visibility 0.38s ease;
+        z-index: 1100;
+      }
+
+      .about-page .side-drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(82vw, 312px);
+        padding: 120px 48px 48px 56px;
+        background: #f5efe6;
+        color: #3e3a36;
+        transform: translateX(-100%);
+        transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1150;
+        overflow-y: auto;
+      }
+
+      .about-page .side-drawer__nav {
+        display: block;
+      }
+
+      .about-page .side-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .about-page .side-drawer__nav a {
+        display: block;
+        color: #3e3a36;
+        text-decoration: none;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: 22px;
+        line-height: 1.9;
+        margin-bottom: 18px;
+        letter-spacing: 0.05em;
+        transition: opacity 0.28s ease;
+      }
+
+      .about-page .side-drawer__reserve {
+        margin-top: 34px;
+      }
+
+      .about-page .reserve-label {
+        margin: 0 0 10px;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        color: #8a837c;
+      }
+
+      .about-page .reserve-link {
+        display: block;
+        font-size: 16px;
+        color: #3e3a36;
+        text-decoration: none;
+        transition: opacity 0.28s ease;
+      }
+
+      .about-page.menu-open .menu-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .about-page.menu-open .side-drawer {
+        transform: translateX(0);
+      }
+
+      @media (max-width: 980px) {
+        .about-page .navbar {
+          height: 88px;
+        }
+
+        .about-page .menu-toggle {
+          left: 36px;
+        }
+
+        .about-page .navbar-cta {
+          right: 36px;
+          font-size: 12px;
+          letter-spacing: 0.14em;
+        }
+
+        .about-page .side-drawer {
+          width: min(82vw, 296px);
+          padding: 116px 26px 30px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .about-page .navbar {
+          height: 84px;
+        }
+
+        .about-page .navbar-logo-stack {
+          width: min(42vw, 168px);
+          height: 34px;
+        }
+
+        .about-page .menu-toggle {
+          left: 20px;
+          gap: 10px;
+          font-size: 10px;
+          letter-spacing: 0.18em;
+        }
+
+        .about-page .navbar-cta {
+          right: 20px;
+          font-size: 11px;
+          letter-spacing: 0.08em;
+        }
+
+        .about-page .side-drawer {
+          width: min(92vw, 320px);
+          padding: 102px 28px 28px 28px;
+        }
+
+        .about-page .side-drawer__nav a {
+          font-size: 20px;
+          line-height: 1.8;
+          margin-bottom: 16px;
+        }
+      }
+    </style>
   </head>
-  <body>
+  <body class="about-page">
     <nav class="navbar">
-      <div class="nav-container">
-        <a href="index.html" class="navbar-logo">
-          <span class="navbar-logo-stack">
-            <img class="navbar-logo-default" src="images/logo.png" alt="AromaFonda" />
-            <img class="navbar-logo-hover" src="images/logo3.png" alt="" aria-hidden="true" />
-          </span>
-        </a>
-        <ul class="nav-links">
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="sideDrawer"
+        aria-label="Open menu"
+      >
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+        <span class="menu-toggle__label">MENU</span>
+      </button>
+
+      <a href="index.html" class="navbar-logo">
+        <span class="navbar-logo-stack">
+          <img
+            class="navbar-logo-image"
+            src="images/logo4.png"
+            alt="AromaFonda"
+          />
+        </span>
+      </a>
+
+      <a
+        href="https://forms.gle/MfHVCKAoVr56w6hc6"
+        class="navbar-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        >立即預約</a
+      >
+    </nav>
+
+    <div class="menu-overlay" hidden></div>
+
+    <aside
+      class="side-drawer"
+      id="sideDrawer"
+      aria-hidden="true"
+      aria-label="Site navigation"
+    >
+      <nav class="side-drawer__nav" aria-label="Drawer menu">
+        <ul class="side-nav-links">
+          <li><a href="index.html">首頁</a></li>
           <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
           <li><a href="./adnaturam.html">法國有機植物精油</a></li>
           <li><a href="./service.html">課程與服務</a></li>
           <li><a href="/about.html">關於我們</a></li>
           <li><a href="#contact">聯絡我們</a></li>
         </ul>
-        <a href="#contact" class="contact-btn">立即預約</a>
+      </nav>
+      <div class="side-drawer__reserve">
+        <p class="reserve-label">RESERVE</p>
+        <a
+          href="https://forms.gle/MfHVCKAoVr56w6hc6"
+          class="reserve-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >立即預約諮詢</a
+        >
       </div>
-    </nav>
+    </aside>
 
     <section class="about-intro">
       <div class="about-intro-container">
         <h1>About us</h1>
         <p>
           AromaFonda
-          以芳香療法與身心覺察為基礎，打造以嗅覺為核心的療癒體驗。我們相信，氣味能溫和地影響情緒與內在狀態，並在忙碌與變動的生活中，提供一種回到當下的方式。<br />
+          以芳香療法與身心覺察為基礎，打造以嗅覺為核心的療癒體驗。我們相信，氣味能溫和地影響情緒與內在狀態，並在忙碌與變動的生活中，成為一種陪伴人回到當下的方式。<br />
           <br />
-          透過嚴選植物精油與細緻調配，我們設計貼近個人需求的香氣陪伴，不追求強烈改變，而是支持身心逐步回到穩定與平衡。AromaFonda
-          希望讓療癒成為日常的一部分，在呼吸之間，重新與自己連結。
+          透過嚴選植物精油與細緻調配，我們設計貼近個人需求的香氣陪伴，不追求強烈改變，而是支持身心一步步回到穩定與平衡。AromaFonda
+          希望讓療癒成為日常的一部分，讓人在每一次呼吸之間，重新與自己連結。
         </p>
       </div>
     </section>
@@ -49,15 +415,15 @@
         <h2 class="founder-title">Meet the Founder — Fonda</h2>
         <p>
           AromaFonda 由創辦人 Fonda
-          創立。她長期投入芳香療法與身心整合的實踐，從自身經驗出發，逐步發展出以嗅覺為核心、結合情緒覺察與生活節奏的療癒方式。對她而言，香氣並非單純的放鬆工具，而是一種能幫助人回到身體、安放感受，並重新建立內在穩定的媒介。<br />
+          創立。她長期投入芳香療法與身心整合的實踐，從自身經驗出發，逐步發展出一種以嗅覺為核心，結合情緒覺察與生活節奏的療癒方式。對她而言，香氣不只是放鬆工具，更是一種幫助人回到身體、安放感受，並重新建立內在穩定的媒介。<br />
           <br />
           在多年陪伴不同生命階段與狀態的人們過程中，Fonda
-          逐漸形成一套溫和且務實的工作方法——透過植物精油的特性分析、情緒與壓力狀態的理解，以及貼近生活的使用方式，讓香氣成為日常可持續的支持，而非短暫的逃離。<br />
+          逐漸形成一套溫和且務實的工作方式。她透過植物精油特性的分析、情緒與壓力狀態的理解，以及貼近日常的使用方法，讓香氣成為可以長期陪伴生活的支持，而不只是短暫逃離現實的方式。<br />
           <br />
-          她的理念與實踐亦曾受到《商業周刊》專題報導，分享如何以芳香療法結合身心覺察，建立更細緻且個人化的療癒體驗。報導中提到，她所關注的不只是氣味本身，而是人們在氣味之中重新與自己連結的過程——從緊繃到放鬆，從混亂到穩定，逐步找回屬於自己的節奏。<br />
+          她的理念與實踐也曾受到《商業周刊》專題報導，分享如何透過芳香療法結合身心覺察，建立更細緻且個人化的療癒體驗。報導中提到，她所在意的不只是氣味本身，而是人們如何在氣味之中重新與自己連結的過程，從緊繃到放鬆，從混亂到穩定，慢慢找回屬於自己的節奏。<br />
           <br />
           Fonda
-          相信，真正的療癒不是快速改變，而是被理解與被陪伴。透過嗅覺，她希望為人們提供一個可以慢下來、傾聽內在、並安心回到自己的入口。
+          相信，真正的療癒不是快速改變，而是在被理解與被陪伴之中，慢慢回到自己。透過嗅覺，她希望為人們提供一個可以慢下來、傾聽內在，並安心回到自己的入口。
         </p>
       </div>
     </section>
@@ -71,10 +437,10 @@
           </p>
           <p>
             AromaFonda
-            以細緻的香氣分析與個人化調配為核心，關注壓力、焦慮、疲憊與情緒累積等日常狀態，並以溫和且安全的方式提供支持。我們重視的不只是短暫的放鬆，而是幫助身體與情緒逐步找到屬於自己的節奏。
+            以細緻的香氣分析與個人化調配為核心，關注壓力、焦慮、疲憊與情緒累積等日常狀態，並以溫和且安全的方式提供支持。我們重視的不只是短暫的放鬆，而是陪伴身體與情緒一步步找到屬於自己的節奏。
           </p>
           <p>
-            透過持續且貼近生活的香氣陪伴，我們希望讓療癒成為一種日常實踐——在呼吸之間，慢慢恢復內在平衡，建立更穩定而長久的身心連結。
+            透過持續且貼近生活的香氣陪伴，我們希望讓療癒成為一種日常實踐，在每一次呼吸之間，慢慢恢復內在平衡，建立更穩定而長久的身心連結。
           </p>
         </div>
       </div>
@@ -88,10 +454,9 @@
         <div class="footer-grid">
           <div class="footer-column footer-links">
             <h3 class="footer-title">探索 AromaFonda</h3>
-            <p class="footer-text">日本嗅覺反應分析</p>
-            <p class="footer-text">法國精選有機植物精油</p>
-            <p class="footer-text">Aoqi 酒香聯名擴香瓶</p>
-            <p class="footer-text">課程與香氣體驗</p>
+            <p class="footer-text"><a href="./analysis.html">日本嗅覺反應分析</a></p>
+            <p class="footer-text"><a href="./adnaturam.html">法國精選有機植物精油</a></p>
+            <p class="footer-text"><a href="./service.html">課程與香氣體驗</a></p>
           </div>
           <div class="footer-column footer-connect">
             <h3 class="footer-title">Connect</h3>
@@ -115,5 +480,124 @@
         </div>
       </div>
     </section>
+
+    <script>
+      (() => {
+        const body = document.body;
+        const navbar = document.querySelector(".navbar");
+        const hero = document.querySelector(".about-intro");
+        const navbarLogo = document.querySelector(".navbar-logo");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const overlay = document.querySelector(".menu-overlay");
+        const sideDrawer = document.getElementById("sideDrawer");
+        const focusableSelectors =
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        if (!navbar || !hero || !navbarLogo || !menuToggle || !overlay || !sideDrawer) {
+          return;
+        }
+
+        const focusableElements = () =>
+          Array.from(sideDrawer.querySelectorAll(focusableSelectors));
+
+        const isOpen = () => body.classList.contains("menu-open");
+
+        const openMenu = () => {
+          body.classList.add("menu-open");
+          overlay.hidden = false;
+          sideDrawer.setAttribute("aria-hidden", "false");
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuToggle.setAttribute("aria-label", "Close menu");
+
+          window.requestAnimationFrame(() => {
+            const [firstFocusable] = focusableElements();
+            if (firstFocusable) {
+              firstFocusable.focus();
+            }
+          });
+        };
+
+        const closeMenu = () => {
+          body.classList.remove("menu-open");
+          sideDrawer.setAttribute("aria-hidden", "true");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+
+          window.setTimeout(() => {
+            if (!isOpen()) {
+              overlay.hidden = true;
+            }
+          }, 380);
+
+          menuToggle.focus();
+        };
+
+        const toggleMenu = () => {
+          if (isOpen()) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        };
+
+        const handleKeydown = (event) => {
+          if (!isOpen()) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeMenu();
+            return;
+          }
+
+          if (event.key !== "Tab") {
+            return;
+          }
+
+          const items = [menuToggle, ...focusableElements()];
+          if (!items.length) {
+            return;
+          }
+
+          const first = items[0];
+          const last = items[items.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        };
+
+        const updateNavbarLogoVisibility = () => {
+          const heroRect = hero.getBoundingClientRect();
+          const navbarRect = navbar.getBoundingClientRect();
+          const logoTriggerY = navbarRect.top + navbarRect.height * 0.5;
+          const hideLogo = heroRect.bottom <= logoTriggerY;
+
+          navbarLogo.classList.toggle("is-hidden", hideLogo);
+        };
+
+        menuToggle.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", closeMenu);
+
+        sideDrawer.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            closeMenu();
+          });
+        });
+
+        window.addEventListener("scroll", updateNavbarLogoVisibility, {
+          passive: true,
+        });
+        window.addEventListener("resize", updateNavbarLogoVisibility);
+        window.addEventListener("load", updateNavbarLogoVisibility);
+        document.addEventListener("keydown", handleKeydown);
+
+        updateNavbarLogoVisibility();
+      })();
+    </script>
   </body>
 </html>

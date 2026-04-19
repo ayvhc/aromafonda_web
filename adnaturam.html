@@ -5,35 +5,373 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>法國有機植物精油 - AromaFonda</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .adnaturam-page .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 88px;
+        background: transparent;
+        z-index: 1200;
+      }
+
+      .adnaturam-page .menu-toggle,
+      .adnaturam-page .navbar-cta {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .adnaturam-page .menu-toggle {
+        left: clamp(56px, 5vw, 64px);
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        color: #1f1b18;
+        font: inherit;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: opacity 0.28s ease;
+        position: absolute;
+      }
+
+      .adnaturam-page .menu-toggle:hover,
+      .adnaturam-page .menu-toggle:focus-visible,
+      .adnaturam-page .navbar-cta:hover,
+      .adnaturam-page .navbar-cta:focus-visible,
+      .adnaturam-page .side-drawer a:hover,
+      .adnaturam-page .side-drawer a:focus-visible {
+        opacity: 0.68;
+      }
+
+      .adnaturam-page .menu-toggle__icon {
+        position: relative;
+        width: 20px;
+        height: 14px;
+        flex: 0 0 20px;
+      }
+
+      .adnaturam-page .menu-toggle__icon span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: currentColor;
+        transform-origin: center;
+        transition:
+          top 0.28s ease,
+          transform 0.28s ease,
+          opacity 0.28s ease;
+      }
+
+      .adnaturam-page .menu-toggle__icon span:first-child {
+        top: 3px;
+      }
+
+      .adnaturam-page .menu-toggle__icon span:last-child {
+        top: 11px;
+      }
+
+      .adnaturam-page.menu-open .menu-toggle__icon span:first-child {
+        top: 7px;
+        transform: rotate(45deg);
+      }
+
+      .adnaturam-page.menu-open .menu-toggle__icon span:last-child {
+        top: 7px;
+        transform: rotate(-45deg);
+      }
+
+      .adnaturam-page .menu-toggle__label {
+        display: inline-block;
+        line-height: 1;
+      }
+
+      .adnaturam-page.menu-open .menu-toggle,
+      .adnaturam-page.menu-open .menu-toggle__label {
+        color: #3e3a36;
+      }
+
+      .adnaturam-page.menu-open .menu-toggle__icon span {
+        background-color: #3e3a36;
+      }
+
+      .adnaturam-page .navbar-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        margin-left: 0;
+        text-decoration: none;
+        transition:
+          opacity 0.28s ease,
+          visibility 0.28s ease;
+      }
+
+      .adnaturam-page .navbar-logo.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .adnaturam-page .menu-toggle::after,
+      .adnaturam-page .navbar-logo::after,
+      .adnaturam-page .navbar-cta::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 1px;
+        background: #1f1b18;
+        transform: scaleX(0);
+        transform-origin: center center;
+        transition: transform 0.28s ease;
+        pointer-events: none;
+      }
+
+      .adnaturam-page .navbar-logo::after {
+        bottom: -10px;
+      }
+
+      .adnaturam-page .menu-toggle:hover::after,
+      .adnaturam-page .menu-toggle:focus-visible::after,
+      .adnaturam-page .navbar-logo:hover::after,
+      .adnaturam-page .navbar-logo:focus-visible::after,
+      .adnaturam-page .navbar-cta:hover::after,
+      .adnaturam-page .navbar-cta:focus-visible::after {
+        transform: scaleX(1);
+      }
+
+      .adnaturam-page .navbar-logo-stack {
+        width: min(32vw, 210px);
+        height: clamp(34px, 4.6vw, 44px);
+      }
+
+      .adnaturam-page .navbar-logo img {
+        height: 100%;
+        max-width: 100%;
+      }
+
+      .adnaturam-page .navbar-cta {
+        right: clamp(56px, 5vw, 64px);
+        color: #1f1b18;
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: opacity 0.28s ease;
+        position: absolute;
+      }
+
+      .adnaturam-page .menu-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(22, 18, 15, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.38s ease,
+          visibility 0.38s ease;
+        z-index: 1100;
+      }
+
+      .adnaturam-page .side-drawer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(82vw, 312px);
+        padding: 120px 48px 48px 56px;
+        background: #f5efe6;
+        color: #3e3a36;
+        transform: translateX(-100%);
+        transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+        z-index: 1150;
+        overflow-y: auto;
+      }
+
+      .adnaturam-page .side-drawer__nav {
+        display: block;
+      }
+
+      .adnaturam-page .side-nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .adnaturam-page .side-drawer__nav a {
+        display: block;
+        color: #3e3a36;
+        text-decoration: none;
+        font-family:
+          "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+        font-size: 22px;
+        line-height: 1.9;
+        margin-bottom: 18px;
+        letter-spacing: 0.05em;
+        transition: opacity 0.28s ease;
+      }
+
+      .adnaturam-page .side-drawer__reserve {
+        margin-top: 34px;
+      }
+
+      .adnaturam-page .reserve-label {
+        margin: 0 0 10px;
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        color: #8a837c;
+      }
+
+      .adnaturam-page .reserve-link {
+        display: block;
+        font-size: 16px;
+        color: #3e3a36;
+        text-decoration: none;
+        transition: opacity 0.28s ease;
+      }
+
+      .adnaturam-page.menu-open .menu-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .adnaturam-page.menu-open .side-drawer {
+        transform: translateX(0);
+      }
+
+      @media (max-width: 980px) {
+        .adnaturam-page .navbar {
+          height: 88px;
+        }
+
+        .adnaturam-page .menu-toggle {
+          left: 36px;
+        }
+
+        .adnaturam-page .navbar-cta {
+          right: 36px;
+          font-size: 12px;
+          letter-spacing: 0.14em;
+        }
+
+        .adnaturam-page .side-drawer {
+          width: min(82vw, 296px);
+          padding: 116px 26px 30px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .adnaturam-page .navbar {
+          height: 84px;
+        }
+
+        .adnaturam-page .navbar-logo-stack {
+          width: min(42vw, 168px);
+          height: 34px;
+        }
+
+        .adnaturam-page .menu-toggle {
+          left: 20px;
+          gap: 10px;
+          font-size: 10px;
+          letter-spacing: 0.18em;
+        }
+
+        .adnaturam-page .navbar-cta {
+          right: 20px;
+          font-size: 11px;
+          letter-spacing: 0.08em;
+        }
+
+        .adnaturam-page .side-drawer {
+          top: 0;
+          bottom: 0;
+          width: min(92vw, 320px);
+          padding: 102px 28px 28px 28px;
+        }
+
+        .adnaturam-page .side-drawer__nav a {
+          font-size: 20px;
+          line-height: 1.8;
+          margin-bottom: 16px;
+        }
+      }
+    </style>
   </head>
   <body class="adnaturam-page">
     <nav class="navbar">
-      <div class="nav-container">
-        <a href="index.html" class="navbar-logo">
-          <span class="navbar-logo-stack">
-            <img
-              class="navbar-logo-default"
-              src="images/logo.png"
-              alt="AromaFonda"
-            />
-            <img
-              class="navbar-logo-hover"
-              src="images/logo3.png"
-              alt=""
-              aria-hidden="true"
-            />
-          </span>
-        </a>
-        <ul class="nav-links">
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="sideDrawer"
+        aria-label="Open menu"
+      >
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+        <span class="menu-toggle__label">MENU</span>
+      </button>
+
+      <a href="index.html" class="navbar-logo">
+        <span class="navbar-logo-stack">
+          <img
+            class="navbar-logo-image"
+            src="images/logo4.png"
+            alt="AromaFonda"
+          />
+        </span>
+      </a>
+
+      <a
+        href="https://forms.gle/MfHVCKAoVr56w6hc6"
+        class="navbar-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        >立即預約</a
+      >
+    </nav>
+
+    <div class="menu-overlay" hidden></div>
+
+    <aside
+      class="side-drawer"
+      id="sideDrawer"
+      aria-hidden="true"
+      aria-label="Site navigation"
+    >
+      <nav class="side-drawer__nav" aria-label="Drawer menu">
+        <ul class="side-nav-links">
+          <li><a href="index.html">首頁</a></li>
           <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
           <li><a href="./adnaturam.html">法國有機植物精油</a></li>
           <li><a href="./service.html">課程與服務</a></li>
           <li><a href="/about.html">關於我們</a></li>
           <li><a href="#contact">聯絡我們</a></li>
         </ul>
-        <a href="#contact" class="contact-btn">立即預約</a>
+      </nav>
+      <div class="side-drawer__reserve">
+        <p class="reserve-label">RESERVE</p>
+        <a
+          href="https://forms.gle/MfHVCKAoVr56w6hc6"
+          class="reserve-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >立即預約諮詢</a
+        >
       </div>
-    </nav>
+    </aside>
 
     <section class="adnaturam-hero">
       <div class="adnaturam-hero-inner">
@@ -41,7 +379,7 @@
           <h1 class="adnaturam-hero-title">源自南法的有機植物香氣</h1>
           <p class="adnaturam-hero-text">
             Ad Naturam
-            為來自法國南部的有機芳療品牌，嚴選植物來源並重視品質與可追溯性，為日常帶來更純粹且值得信賴的香氣選擇。
+            為來自法國南部的有機芳療品牌，嚴選植物來源，重視品質與可追溯性，為日常帶來純粹且值得信賴的香氣體驗。
           </p>
           <div class="adnaturam-actions">
             <a
@@ -147,7 +485,7 @@
             </p>
             <p>
               Ad Naturam
-              堅持以短鏈供應模式直接與產地合作，減少中間商，並透過實驗室分析與批次品質檢測，確保精油的純度與穩定性，從原料到裝瓶皆符合嚴格品質標準。
+              堅持以短鏈供應模式直接與產地合作，減少中間環節，並透過實驗室分析與批次品質檢測，確保精油的純度與穩定性，從原料到裝瓶皆符合嚴格品質標準。
             </p>
             <p>
               品牌同時取得多項國際有機與品質認證，包括 ECOCERT、COSMOS、AB
@@ -191,7 +529,7 @@
             <h3 class="adn-values-heading">有機來源</h3>
             <p class="adn-values-text">
               Ad Naturam
-              重視植物來源與產地選擇，透過走訪與直接合作，確保原料品質、純淨度與可追溯性。
+              重視植物來源與產地選擇，透過實地走訪與直接合作，確保原料品質、純淨度與可追溯性。
             </p>
           </article>
 
@@ -202,7 +540,7 @@
             <p class="adn-values-eyebrow">VALUES</p>
             <h3 class="adn-values-heading">長期夥伴</h3>
             <p class="adn-values-text">
-              品牌與各地生產者建立穩定且透明的合作模式，重視土地、植物與人之間的連結。
+              品牌與各地生產者建立穩定且透明的合作模式，重視土地、植物與人之間的連結關係。
             </p>
           </article>
 
@@ -213,7 +551,7 @@
             <p class="adn-values-eyebrow">QUALITY</p>
             <h3 class="adn-values-heading">專業品質</h3>
             <p class="adn-values-text">
-              從原料到製程皆採高標準品質控管，並透過專業分析確保產品穩定與可信度。
+              從原料到製程皆採高標準品質控管，並透過專業分析確保產品的穩定性與可信度。
             </p>
           </article>
 
@@ -224,7 +562,7 @@
             <p class="adn-values-eyebrow">SUSTAINABILITY</p>
             <h3 class="adn-values-heading">永續責任</h3>
             <p class="adn-values-text">
-              以永續為核心理念，尊重自然資源，並推動更友善環境與公平合作的生產方式。
+              以永續為核心理念，尊重自然資源，並推動更友善環境且公平合作的生產方式。
             </p>
           </article>
         </div>
@@ -252,17 +590,17 @@
             <div class="adn-message-text">
               <p>
                 Ad Naturam
-                一直相信，真正值得長久信任的芳療選擇，必須從植物本身開始。從原料產地、栽種方式、蒸餾過程到最後的品質檢測，每一個環節都不應只是生產流程的一部分，而應該是品牌對使用者所承擔的責任。
+                一直相信，真正值得長久信任的芳療選擇，必須從植物本身開始。從原料產地、栽種方式、蒸餾過程到最終的品質檢測，每一個環節都不只是生產流程的一部分，更是品牌對使用者所承擔的責任。
               </p>
               <p>
                 對我們而言，芳療不只是香氣的呈現，更是一種與土地、植物與時間建立關係的方式。唯有理解植物從哪裡來、如何被採收與轉化，才能真正看見一瓶精油背後所蘊含的價值與意義。
               </p>
               <p>
-                我們也始終希望，Ad Naturam
-                所提供的不只是產品本身，而是一種更安心、更透明的選擇。讓使用者在日常生活中接觸芳療時，能感受到品質的穩定、來源的清楚，以及品牌對細節的尊重。
+                我們始終希望，Ad Naturam
+                所提供的不只是產品本身，而是一種更安心、更透明的選擇。讓使用者在日常接觸芳療時，能感受到品質的穩定、來源的清楚，以及品牌對細節的重視。
               </p>
               <p>
-                這份理念延伸到與各地生產者的合作，也延伸到每一次與不同市場的相遇。當植物的自然力量能夠以誠實而穩定的方式被傳遞，我們相信，芳療便能真正成為陪伴生活的一部分。
+                這份理念不僅體現在與各地生產者的合作，也延伸至每一次與不同市場的連結。我們相信，當植物的自然力量能夠以誠實且穩定的方式被傳遞，芳療便能真正成為生活的一部分。
               </p>
             </div>
 
@@ -283,7 +621,7 @@
         <p class="adn-collab-text">
           AromaFonda 為 Ad Naturam
           台灣獨家代理，將來自法國南部的有機植物香氣帶入台灣。<br />
-          我們的選擇，不只因為其嚴謹認證與透明來源，更因品牌對自然本質與身心平衡的理念與
+          我們之所以選擇 Ad Naturam，不僅因其嚴謹的認證與透明來源，更因品牌對自然本質與身心平衡的理念，與
           AromaFonda 高度契合。
         </p>
         <div class="adn-venn">
@@ -301,7 +639,7 @@
         <div class="adn-cta-left">
           <h2>想更進一步了解 Ad Naturam？</h2>
           <p>
-            歡迎透過 AromaFonda 了解更多產品資訊，<br />
+            歡迎透過 AromaFonda 進一步了解產品資訊，<br />
             Ad Naturam Taiwan 官方網站也將於近期上線。
           </p>
 
@@ -329,10 +667,9 @@
         <div class="footer-grid">
           <div class="footer-column footer-links">
             <h3 class="footer-title">探索 AromaFonda</h3>
-            <p class="footer-text">日本嗅覺反應分析</p>
-            <p class="footer-text">法國精選有機植物精油</p>
-            <p class="footer-text">Aoqi 酒香聯名擴香瓶</p>
-            <p class="footer-text">課程與香氣體驗</p>
+            <p class="footer-text"><a href="./analysis.html">日本嗅覺反應分析</a></p>
+            <p class="footer-text"><a href="./adnaturam.html">法國精選有機植物精油</a></p>
+            <p class="footer-text"><a href="./service.html">課程與香氣體驗</a></p>
           </div>
           <div class="footer-column footer-connect">
             <h3 class="footer-title">Connect</h3>
@@ -356,5 +693,124 @@
         </div>
       </div>
     </section>
+
+    <script>
+      (() => {
+        const body = document.body;
+        const navbar = document.querySelector(".navbar");
+        const hero = document.querySelector(".adnaturam-hero");
+        const navbarLogo = document.querySelector(".navbar-logo");
+        const menuToggle = document.querySelector(".menu-toggle");
+        const overlay = document.querySelector(".menu-overlay");
+        const sideDrawer = document.getElementById("sideDrawer");
+        const focusableSelectors =
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        if (!navbar || !hero || !navbarLogo || !menuToggle || !overlay || !sideDrawer) {
+          return;
+        }
+
+        const focusableElements = () =>
+          Array.from(sideDrawer.querySelectorAll(focusableSelectors));
+
+        const isOpen = () => body.classList.contains("menu-open");
+
+        const openMenu = () => {
+          body.classList.add("menu-open");
+          overlay.hidden = false;
+          sideDrawer.setAttribute("aria-hidden", "false");
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuToggle.setAttribute("aria-label", "Close menu");
+
+          window.requestAnimationFrame(() => {
+            const [firstFocusable] = focusableElements();
+            if (firstFocusable) {
+              firstFocusable.focus();
+            }
+          });
+        };
+
+        const closeMenu = () => {
+          body.classList.remove("menu-open");
+          sideDrawer.setAttribute("aria-hidden", "true");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+
+          window.setTimeout(() => {
+            if (!isOpen()) {
+              overlay.hidden = true;
+            }
+          }, 380);
+
+          menuToggle.focus();
+        };
+
+        const toggleMenu = () => {
+          if (isOpen()) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        };
+
+        const handleKeydown = (event) => {
+          if (!isOpen()) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeMenu();
+            return;
+          }
+
+          if (event.key !== "Tab") {
+            return;
+          }
+
+          const items = [menuToggle, ...focusableElements()];
+          if (!items.length) {
+            return;
+          }
+
+          const first = items[0];
+          const last = items[items.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        };
+
+        const updateNavbarLogoVisibility = () => {
+          const heroRect = hero.getBoundingClientRect();
+          const navbarRect = navbar.getBoundingClientRect();
+          const logoTriggerY = navbarRect.top + navbarRect.height * 0.5;
+          const hideLogo = heroRect.bottom <= logoTriggerY;
+
+          navbarLogo.classList.toggle("is-hidden", hideLogo);
+        };
+
+        menuToggle.addEventListener("click", toggleMenu);
+        overlay.addEventListener("click", closeMenu);
+
+        sideDrawer.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            closeMenu();
+          });
+        });
+
+        window.addEventListener("scroll", updateNavbarLogoVisibility, {
+          passive: true,
+        });
+        window.addEventListener("resize", updateNavbarLogoVisibility);
+        window.addEventListener("load", updateNavbarLogoVisibility);
+        document.addEventListener("keydown", handleKeydown);
+
+        updateNavbarLogoVisibility();
+      })();
+    </script>
   </body>
 </html>
