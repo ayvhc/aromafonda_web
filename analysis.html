@@ -327,6 +327,49 @@
           margin-bottom: 16px;
         }
       }
+
+      @media (max-width: 480px) {
+        .analysis-page .menu-toggle::after,
+        .analysis-page .navbar-logo::after,
+        .analysis-page .navbar-cta::after {
+          background: #ffffff;
+        }
+
+        .analysis-page .navbar {
+          height: 78px;
+        }
+
+        .analysis-page .navbar-logo-stack {
+          width: min(38vw, 140px);
+          height: 30px;
+        }
+
+        .analysis-page .menu-toggle {
+          left: 16px;
+          gap: 8px;
+        }
+
+        .analysis-page .menu-toggle__label {
+          display: none;
+        }
+
+        .analysis-page .navbar-cta {
+          right: 16px;
+          font-size: 10px;
+          letter-spacing: 0.04em;
+        }
+
+        .analysis-page .side-drawer {
+          width: min(calc(100vw - 18px), 300px);
+          padding: 94px 22px 24px;
+        }
+
+        .analysis-page .side-drawer__nav a {
+          font-size: 18px;
+          line-height: 1.7;
+          margin-bottom: 12px;
+        }
+      }
     </style>
   </head>
   <body class="analysis-page">
@@ -576,7 +619,13 @@
           <p class="analysis-cta-eyebrow">立即體驗</p>
           <h2 class="analysis-cta-title">即刻體驗嗅覺反應分析</h2>
           <div class="analysis-cta-buttons">
-            <a href="#contact" class="analysis-cta-btn">預約體驗</a>
+            <a
+              href="https://forms.gle/MfHVCKAoVr56w6hc6"
+              class="analysis-cta-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              >預約體驗</a
+            >
             <a href="https://ahis.or.jp/about/" class="analysis-cta-btn" target="_blank" rel="noopener noreferrer">了解更多</a>
           </div>
         </div>

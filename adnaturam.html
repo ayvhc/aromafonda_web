@@ -308,6 +308,49 @@
           margin-bottom: 16px;
         }
       }
+
+      @media (max-width: 480px) {
+        .adnaturam-page .menu-toggle::after,
+        .adnaturam-page .navbar-logo::after,
+        .adnaturam-page .navbar-cta::after {
+          background: #ffffff;
+        }
+
+        .adnaturam-page .navbar {
+          height: 78px;
+        }
+
+        .adnaturam-page .navbar-logo-stack {
+          width: min(38vw, 140px);
+          height: 30px;
+        }
+
+        .adnaturam-page .menu-toggle {
+          left: 16px;
+          gap: 8px;
+        }
+
+        .adnaturam-page .menu-toggle__label {
+          display: none;
+        }
+
+        .adnaturam-page .navbar-cta {
+          right: 16px;
+          font-size: 10px;
+          letter-spacing: 0.04em;
+        }
+
+        .adnaturam-page .side-drawer {
+          width: min(calc(100vw - 18px), 300px);
+          padding: 94px 22px 24px;
+        }
+
+        .adnaturam-page .side-drawer__nav a {
+          font-size: 18px;
+          line-height: 1.7;
+          margin-bottom: 12px;
+        }
+      }
     </style>
   </head>
   <body class="adnaturam-page">

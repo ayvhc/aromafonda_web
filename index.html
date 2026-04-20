@@ -8,9 +8,23 @@
     <link rel="icon" type="image/png" href="/images/favicon.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="home-page">
     <nav class="navbar">
       <div class="nav-container">
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="sideDrawer"
+          aria-label="Open menu"
+        >
+          <span class="menu-toggle__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu-toggle__label">MENU</span>
+        </button>
+
         <a href="index.html" class="navbar-logo">
           <span class="navbar-logo-stack">
             <img
@@ -40,8 +54,45 @@
           rel="noopener noreferrer"
           >立即預約</a
         >
+        <a
+          href="https://forms.gle/MfHVCKAoVr56w6hc6"
+          class="navbar-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+          >立即預約</a
+        >
       </div>
     </nav>
+
+    <div class="menu-overlay" hidden></div>
+
+    <aside
+      class="side-drawer"
+      id="sideDrawer"
+      aria-hidden="true"
+      aria-label="Site navigation"
+    >
+      <nav class="side-drawer__nav" aria-label="Drawer menu">
+        <ul class="side-nav-links">
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="./analysis.html">日本嗅覺反應分析</a></li>
+          <li><a href="./adnaturam.html">法國有機植物精油</a></li>
+          <li><a href="./service.html">課程與服務</a></li>
+          <li><a href="/about.html">關於我們</a></li>
+          <li><a href="#contact">聯絡我們</a></li>
+        </ul>
+      </nav>
+      <div class="side-drawer__reserve">
+        <p class="reserve-label">RESERVE</p>
+        <a
+          href="https://forms.gle/MfHVCKAoVr56w6hc6"
+          class="reserve-link"
+          target="_blank"
+          rel="noopener noreferrer"
+          >立即預約諮詢</a
+        >
+      </div>
+    </aside>
     <section class="hero">
       <div class="hero-left">
         <div class="hero-text">
@@ -123,47 +174,191 @@
     </section>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const prefersReducedMotion = window.matchMedia(
+        const body = document.body;
+        const menuToggle = document.querySelector(".menu-toggle");
+        const overlay = document.querySelector(".menu-overlay");
+        const sideDrawer = document.getElementById("sideDrawer");
+        const focusableSelectors =
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+        const section = document.querySelector(".scroll-transition");
+        const ctaLayer = document.querySelector(".cta-layer");
+        const bvLayer = document.querySelector(".brand-values-layer");
+        const reducedMotionQuery = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
-        ).matches;
+        );
 
-        if (!prefersReducedMotion) {
-          const section = document.querySelector(".scroll-transition");
-          const ctaLayer = document.querySelector(".cta-layer");
-          const bvLayer = document.querySelector(".brand-values-layer");
+        const focusableElements = () =>
+          sideDrawer
+            ? Array.from(sideDrawer.querySelectorAll(focusableSelectors))
+            : [];
 
-          let ticking = false;
+        const isOpen = () => body.classList.contains("menu-open");
 
-          const updateScroll = () => {
-            const sectionRect = section.getBoundingClientRect();
-            const scrollProgress = -sectionRect.top / window.innerHeight;
-            let transitionProgress = 0;
-            if (scrollProgress > 0.45) {
-              transitionProgress = Math.min((scrollProgress - 0.45) / 0.25, 1);
-            }
+        const openMenu = () => {
+          if (!menuToggle || !overlay || !sideDrawer) {
+            return;
+          }
 
-            ctaLayer.style.opacity = 1 - transitionProgress;
-            ctaLayer.style.transform = `translateY(${-transitionProgress * 120}px)`;
+          body.classList.add("menu-open");
+          overlay.hidden = false;
+          sideDrawer.setAttribute("aria-hidden", "false");
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuToggle.setAttribute("aria-label", "Close menu");
 
-            bvLayer.style.opacity = transitionProgress;
-            bvLayer.style.transform = `translateY(${120 - transitionProgress * 120}px)`;
-
-            ticking = false;
-          };
-
-          window.addEventListener("scroll", () => {
-            if (!ticking) {
-              requestAnimationFrame(updateScroll);
-              ticking = true;
+          window.requestAnimationFrame(() => {
+            const [firstFocusable] = focusableElements();
+            if (firstFocusable) {
+              firstFocusable.focus();
             }
           });
-        } else {
-          // For reduced motion, show both layers
-          document.querySelector(".cta-layer").style.opacity = "1";
-          document.querySelector(".brand-values-layer").style.opacity = "1";
-          document.querySelector(".brand-values-layer").style.transform =
-            "translateY(0)";
+        };
+
+        const closeMenu = ({ returnFocus = true } = {}) => {
+          if (!menuToggle || !overlay || !sideDrawer) {
+            return;
+          }
+
+          body.classList.remove("menu-open");
+          sideDrawer.setAttribute("aria-hidden", "true");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+
+          window.setTimeout(() => {
+            if (!isOpen()) {
+              overlay.hidden = true;
+            }
+          }, 380);
+
+          if (returnFocus) {
+            menuToggle.focus();
+          }
+        };
+
+        const toggleMenu = () => {
+          if (isOpen()) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        };
+
+        const handleKeydown = (event) => {
+          if (!isOpen()) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeMenu();
+            return;
+          }
+
+          if (event.key !== "Tab") {
+            return;
+          }
+
+          const items = [menuToggle, ...focusableElements()].filter(Boolean);
+          if (!items.length) {
+            return;
+          }
+
+          const first = items[0];
+          const last = items[items.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        };
+
+        if (menuToggle && overlay && sideDrawer) {
+          menuToggle.addEventListener("click", toggleMenu);
+          overlay.addEventListener("click", () => closeMenu());
+          sideDrawer.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => closeMenu({ returnFocus: false }));
+          });
+          document.addEventListener("keydown", handleKeydown);
         }
+
+        let ticking = false;
+
+        const useStaticScrollLayout = () =>
+          reducedMotionQuery.matches || window.innerWidth <= 980;
+
+        const applyStaticScrollLayout = () => {
+          if (!ctaLayer || !bvLayer) {
+            return;
+          }
+
+          ctaLayer.style.opacity = "1";
+          ctaLayer.style.transform = "translateY(0)";
+          ctaLayer.style.pointerEvents = "auto";
+          bvLayer.style.opacity = "1";
+          bvLayer.style.transform = "translateY(0)";
+          bvLayer.style.pointerEvents = "auto";
+        };
+
+        const updateScrollTransition = () => {
+          if (!section || !ctaLayer || !bvLayer) {
+            return;
+          }
+
+          if (useStaticScrollLayout()) {
+            applyStaticScrollLayout();
+            ticking = false;
+            return;
+          }
+
+          const sectionRect = section.getBoundingClientRect();
+          const scrollProgress = -sectionRect.top / window.innerHeight;
+          let transitionProgress = 0;
+
+          if (scrollProgress > 0.45) {
+            transitionProgress = Math.min((scrollProgress - 0.45) / 0.25, 1);
+          }
+
+          ctaLayer.style.opacity = `${1 - transitionProgress}`;
+          ctaLayer.style.transform = `translateY(${-transitionProgress * 120}px)`;
+          ctaLayer.style.pointerEvents = transitionProgress > 0.5 ? "none" : "auto";
+
+          bvLayer.style.opacity = `${transitionProgress}`;
+          bvLayer.style.transform = `translateY(${120 - transitionProgress * 120}px)`;
+          bvLayer.style.pointerEvents = transitionProgress > 0.75 ? "auto" : "none";
+
+          ticking = false;
+        };
+
+        const handleViewportChange = () => {
+          if (window.innerWidth > 980 && isOpen()) {
+            closeMenu({ returnFocus: false });
+          }
+
+          updateScrollTransition();
+        };
+
+        window.addEventListener("scroll", () => {
+          if (useStaticScrollLayout()) {
+            return;
+          }
+
+          if (!ticking) {
+            requestAnimationFrame(updateScrollTransition);
+            ticking = true;
+          }
+        });
+
+        window.addEventListener("resize", handleViewportChange);
+        window.addEventListener("load", updateScrollTransition);
+
+        if (typeof reducedMotionQuery.addEventListener === "function") {
+          reducedMotionQuery.addEventListener("change", updateScrollTransition);
+        } else if (typeof reducedMotionQuery.addListener === "function") {
+          reducedMotionQuery.addListener(updateScrollTransition);
+        }
+
+        updateScrollTransition();
       });
     </script>
     <section class="experiences">
